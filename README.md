@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/src/assets/jcge_logo_dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/src/assets/jcge_logo_light.png">
-  <img alt="JCGE logo" src="docs/src/assets/jcge_logo_light.png" width="320">
+  <img alt="JCGE logo" src="docs/src/assets/jcge_logo_light.png" width="200">
 </picture>
 
 JCGE.jl is a modular, block-based framework for building and running computable general equilibrium (CGE) models in Julia.
