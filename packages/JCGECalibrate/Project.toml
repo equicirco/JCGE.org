@@ -1,6 +1,6 @@
 name = "JCGECalibrate"
-uuid = "00000000-0000-0000-0000-000000000000"
-authors = ["<you>"]
+uuid = "52bcf1bb-5715-4bdb-b809-8ade53bb6205"
+authors = ["Riccardo Boero <ribo@nilu.no>"]
 version = "0.0.0"
 
 [deps]

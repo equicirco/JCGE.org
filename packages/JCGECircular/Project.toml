@@ -1,6 +1,6 @@
 name = "JCGECircular"
-uuid = "00000000-0000-0000-0000-000000000000"
-authors = ["<you>"]
+uuid = "9e247348-7048-48da-bb29-f3fa8a5dd965"
+authors = ["Riccardo Boero <ribo@nilu.no>"]
 version = "0.0.0"
 
 [deps]

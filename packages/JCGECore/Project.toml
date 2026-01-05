@@ -1,6 +1,6 @@
 name = "JCGECore"
-uuid = "00000000-0000-0000-0000-000000000000"
-authors = ["<you>"]
+uuid = "9fb9d605-0ed3-4980-82c1-f0874844db5d"
+authors = ["Riccardo Boero <ribo@nilu.no>"]
 version = "0.0.0"
 
 [deps]

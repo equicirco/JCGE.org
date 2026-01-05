@@ -1,5 +1,5 @@
 name = "JCGEDev"
-uuid = "00000000-0000-0000-0000-000000000000"
-authors = ["<you>"]
+uuid = "f47ddeac-8f54-4c93-8481-79b72fe5beb2"
+authors = ["Riccardo Boero <ribo@nilu.no>"]
 
 [deps]
