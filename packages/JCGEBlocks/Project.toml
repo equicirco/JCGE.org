@@ -7,3 +7,7 @@ version = "0.0.0"
 JCGECore = "9fb9d605-0ed3-4980-82c1-f0874844db5d"
 JCGEKernel = "cc244198-1562-43f7-ad75-589e1d675269"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[sources]
+JCGECore = { path = "../JCGECore" }
+JCGEKernel = { path = "../JCGEKernel" }
