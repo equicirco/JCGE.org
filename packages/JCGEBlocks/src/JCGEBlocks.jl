@@ -2,9 +2,10 @@ module JCGEBlocks
 
 using JCGECore
 using JCGEKernel
+using JuMP
 
 export DummyBlock
-export StandardCGEBlock
+export ProductionBlock
 
 "Minimal example block used to validate end-to-end wiring."
 struct DummyBlock <: JCGECore.AbstractBlock
@@ -17,108 +18,105 @@ function JCGECore.build!(block::DummyBlock, ctx::JCGEKernel.KernelContext, spec:
     return nothing
 end
 
-struct StandardCGEBlock <: JCGECore.AbstractBlock
+struct ProductionBlock <: JCGECore.AbstractBlock
     name::Symbol
-    sam_table::Any
-    start::Any
-    params::Any
+    activities::Vector{Symbol}
+    factors::Vector{Symbol}
+    commodities::Vector{Symbol}
+    params::NamedTuple
 end
 
-function var_name(block::StandardCGEBlock, base::Symbol, idxs::Symbol...)
+function var_name(block::ProductionBlock, base::Symbol, idxs::Symbol...)
     if isempty(idxs)
         return Symbol(string(block.name), "_", base)
     end
     return Symbol(string(block.name), "_", base, "_", join(string.(idxs), "_"))
 end
 
-function register_var!(ctx::JCGEKernel.KernelContext, block::StandardCGEBlock, base::Symbol, idxs::Symbol...)
-    name = var_name(block, base, idxs...)
-    JCGEKernel.register_variable!(ctx, name, (base=base, indices=idxs))
+function ensure_var!(ctx::JCGEKernel.KernelContext, model, name::Symbol; lower=0.00001, start=nothing)
+    if haskey(ctx.variables, name)
+        return ctx.variables[name]
+    end
+    if model isa JuMP.Model
+        if start === nothing
+            v = @variable(model, lower_bound=lower, base_name=string(name))
+        else
+            v = @variable(model, lower_bound=lower, base_name=string(name), start=start)
+        end
+    else
+        v = (name=name)
+    end
+    JCGEKernel.register_variable!(ctx, name, v)
+    return v
+end
+
+function register_eq!(ctx::JCGEKernel.KernelContext, block::ProductionBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+    JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::StandardCGEBlock, tag::Symbol, idxs::Symbol...)
-    JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs))
-    return nothing
-end
+function JCGECore.build!(block::ProductionBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    activities = isempty(block.activities) ? spec.model.sets.activities : block.activities
+    factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
+    commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
 
-function JCGECore.build!(block::StandardCGEBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
-    # Placeholder registry wiring for the StandardCGE port.
-    goods = spec.model.sets.commodities
-    factors = spec.model.sets.factors
+    b = block.params.b
+    beta = block.params.beta
+    ay = block.params.ay
+    ax = block.params.ax
 
-    for i in goods
-        register_var!(ctx, block, :Y, i)
-        register_var!(ctx, block, :Z, i)
-        register_var!(ctx, block, :Xp, i)
-        register_var!(ctx, block, :Xg, i)
-        register_var!(ctx, block, :Xv, i)
-        register_var!(ctx, block, :E, i)
-        register_var!(ctx, block, :M, i)
-        register_var!(ctx, block, :Q, i)
-        register_var!(ctx, block, :D, i)
-        register_var!(ctx, block, :py, i)
-        register_var!(ctx, block, :pz, i)
-        register_var!(ctx, block, :pq, i)
-        register_var!(ctx, block, :pe, i)
-        register_var!(ctx, block, :pm, i)
-        register_var!(ctx, block, :pd, i)
-        register_var!(ctx, block, :Tz, i)
-        register_var!(ctx, block, :Tm, i)
+    model = ctx.model
+    Y = Dict{Symbol,Any}()
+    Z = Dict{Symbol,Any}()
+    py = Dict{Symbol,Any}()
+    pz = Dict{Symbol,Any}()
+    pq = Dict{Symbol,Any}()
+    pf = Dict{Symbol,Any}()
+    F = Dict{Tuple{Symbol,Symbol},Any}()
+    X = Dict{Tuple{Symbol,Symbol},Any}()
+
+    for i in activities
+        Y[i] = ensure_var!(ctx, model, var_name(block, :Y, i))
+        Z[i] = ensure_var!(ctx, model, var_name(block, :Z, i))
+        py[i] = ensure_var!(ctx, model, var_name(block, :py, i))
+        pz[i] = ensure_var!(ctx, model, var_name(block, :pz, i))
+    end
+
+    for j in commodities
+        pq[j] = ensure_var!(ctx, model, var_name(block, :pq, j))
     end
 
     for h in factors
-        register_var!(ctx, block, :pf, h)
+        pf[h] = ensure_var!(ctx, model, var_name(block, :pf, h))
     end
 
-    register_var!(ctx, block, :epsilon)
-    register_var!(ctx, block, :Sp)
-    register_var!(ctx, block, :Sg)
-    register_var!(ctx, block, :Td)
-
-    for h in factors, i in goods
-        register_var!(ctx, block, :F, h, i)
+    for h in factors, i in activities
+        F[(h, i)] = ensure_var!(ctx, model, var_name(block, :F, h, i))
     end
 
-    for i in goods, j in goods
-        register_var!(ctx, block, :X, i, j)
+    for j in commodities, i in activities
+        X[(j, i)] = ensure_var!(ctx, model, var_name(block, :X, j, i))
     end
 
-    for i in goods
-        register_eq!(ctx, block, :eqpy, i)
-        register_eq!(ctx, block, :eqY, i)
-        register_eq!(ctx, block, :eqpzs, i)
-        register_eq!(ctx, block, :eqTz, i)
-        register_eq!(ctx, block, :eqTm, i)
-        register_eq!(ctx, block, :eqXg, i)
-        register_eq!(ctx, block, :eqXv, i)
-        register_eq!(ctx, block, :eqXp, i)
-        register_eq!(ctx, block, :eqpe, i)
-        register_eq!(ctx, block, :eqpm, i)
-        register_eq!(ctx, block, :eqpqs, i)
-        register_eq!(ctx, block, :eqM, i)
-        register_eq!(ctx, block, :eqD, i)
-        register_eq!(ctx, block, :eqpzd, i)
-        register_eq!(ctx, block, :eqE, i)
-        register_eq!(ctx, block, :eqDs, i)
-        register_eq!(ctx, block, :eqpqd, i)
-    end
+    for i in activities
+        constraint = model isa JuMP.Model ? @NLconstraint(model, Y[i] == b[i] * prod(F[(h, i)] ^ beta[(h, i)] for h in factors)) : nothing
+        register_eq!(ctx, block, :eqpy, i; info="Y[i] == b[i] * prod(F[h,i]^beta[h,i])", constraint=constraint)
 
-    for h in factors, i in goods
-        register_eq!(ctx, block, :eqF, h, i)
-    end
+        for h in factors
+            constraint = model isa JuMP.Model ? @NLconstraint(model, F[(h, i)] == beta[(h, i)] * py[i] * Y[i] / pf[h]) : nothing
+            register_eq!(ctx, block, :eqF, h, i; info="F[h,i] == beta[h,i] * py[i] * Y[i] / pf[h]", constraint=constraint)
+        end
 
-    for i in goods, j in goods
-        register_eq!(ctx, block, :eqX, i, j)
-    end
+        for j in commodities
+            constraint = model isa JuMP.Model ? @constraint(model, X[(j, i)] == ax[(j, i)] * Z[i]) : nothing
+            register_eq!(ctx, block, :eqX, j, i; info="X[j,i] == ax[j,i] * Z[i]", constraint=constraint)
+        end
 
-    register_eq!(ctx, block, :eqTd)
-    register_eq!(ctx, block, :eqSp)
-    register_eq!(ctx, block, :eqSg)
-    register_eq!(ctx, block, :eqepsilon)
+        constraint = model isa JuMP.Model ? @constraint(model, Y[i] == ay[i] * Z[i]) : nothing
+        register_eq!(ctx, block, :eqY, i; info="Y[i] == ay[i] * Z[i]", constraint=constraint)
 
-    for h in factors
-        register_eq!(ctx, block, :eqpf, h)
+        constraint = model isa JuMP.Model ? @constraint(model, pz[i] == ay[i] * py[i] + sum(ax[(j, i)] * pq[j] for j in commodities)) : nothing
+        register_eq!(ctx, block, :eqpzs, i; info="pz[i] == ay[i]*py[i] + sum(ax[j,i]*pq[j])", constraint=constraint)
     end
 
     return nothing

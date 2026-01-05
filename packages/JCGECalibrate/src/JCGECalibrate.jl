@@ -98,6 +98,14 @@ struct StartingValues
     Sf::Float64
     pWe::LabeledVector{Float64}
     pWm::LabeledVector{Float64}
+    pf0::LabeledVector{Float64}
+    py0::LabeledVector{Float64}
+    pz0::LabeledVector{Float64}
+    pq0::LabeledVector{Float64}
+    pe0::LabeledVector{Float64}
+    pm0::LabeledVector{Float64}
+    pd0::LabeledVector{Float64}
+    epsilon0::Float64
 end
 
 struct ModelParameters
@@ -226,6 +234,14 @@ function compute_starting_values(sam_table::SAMTable)
     Sf = sam[sam_table.investment_label, sam_table.restOfTheWorld_label]
     pWe = ones(length(goods))
     pWm = ones(length(goods))
+    pf0 = ones(length(factors))
+    py0 = ones(length(goods))
+    pz0 = ones(length(goods))
+    pq0 = ones(length(goods))
+    pe0 = ones(length(goods))
+    pm0 = ones(length(goods))
+    pd0 = ones(length(goods))
+    epsilon0 = 1.0
     return StartingValues(
         Td0,
         LabeledVector(Tz0, goods),
@@ -249,6 +265,14 @@ function compute_starting_values(sam_table::SAMTable)
         Sf,
         LabeledVector(pWe, goods),
         LabeledVector(pWm, goods),
+        LabeledVector(pf0, factors),
+        LabeledVector(py0, goods),
+        LabeledVector(pz0, goods),
+        LabeledVector(pq0, goods),
+        LabeledVector(pe0, goods),
+        LabeledVector(pm0, goods),
+        LabeledVector(pd0, goods),
+        epsilon0,
     )
 end
 

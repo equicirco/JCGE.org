@@ -20,8 +20,8 @@ Do not move generic framework logic into JCGELibrary.
 - Do not add parallel top-level `data/` or `docs/` folders in JCGELibrary.
 
 ## Model module contract (required)
-Each model submodule (e.g. `StandardCGE`) must:
-1) live in `models/<ModelName>.jl`
+Each model submodule (e.g. `<ModelName>`) must:
+1) live in `models/<ModelName>/<ModelName>.jl`
 2) define `module <ModelName> ... end`
 3) export at least:
    - `model()` returning a JCGE-compatible spec/builder (prefer `RunSpec` or `ModelSpec`)
@@ -40,11 +40,6 @@ Each model submodule (e.g. `StandardCGE`) must:
 ## Versioning
 - Keep JCGELibrary compatible with the current JCGE framework versions used in the monorepo.
 - Once published, changes to a model module API should be deliberate and documented.
-
-## Next steps (initial)
-- [ ] Add first model: `models/StandardCGE.jl`
-- [ ] Wire it into `src/JCGELibrary.jl` with `include` and `export`
-- [ ] Add one minimal integration test that loads the module and calls `model()`
 
 ## Development approach (near-term)
 - Port a known JuMP CGE model into this package as the first real target model.
