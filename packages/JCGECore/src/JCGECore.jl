@@ -3,6 +3,7 @@ module JCGECore
 export Sets, Mappings, ModelSpec, ClosureSpec, ScenarioSpec, RunSpec
 export AbstractBlock, calibrate!, build!, report
 export validate
+export getparam
 
 "Canonical set containers (minimal placeholder)."
 struct Sets
@@ -68,6 +69,13 @@ function validate(spec::RunSpec)
     isempty(spec.model.sets.factors) && error("Sets.factors is empty")
     isempty(spec.model.sets.institutions) && error("Sets.institutions is empty")
     return true
+end
+
+"Get parameter values from dict- or table-like containers."
+function getparam(params, name::Symbol, idxs...)
+    hasproperty(params, name) || error("Missing parameter: $(name)")
+    data = getproperty(params, name)
+    return getindex(data, idxs...)
 end
 
 end # module

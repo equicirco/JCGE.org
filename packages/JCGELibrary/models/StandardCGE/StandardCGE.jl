@@ -49,7 +49,34 @@ function model(; sam_table::Union{Nothing,JCGECalibrate.SAMTable} = nothing,
     ]
     sets = JCGECore.Sets(commodities, activities, factors_sym, institutions)
     mappings = JCGECore.Mappings(Dict(a => a for a in activities))
-    blocks = Any[JCGEBlocks.StandardCGEBlock(:standard_cge, sam_table, start, params)]
+    prod_params = (b = params.b, beta = params.beta, ay = params.ay, ax = params.ax)
+    prod_block = JCGEBlocks.ProductionBlock(:prod, activities, factors_sym, commodities, prod_params)
+
+    factor_block = JCGEBlocks.FactorSupplyBlock(:factor_supply, factors_sym, (FF = start.FF,))
+
+    hh = sam_table.households_label
+    hh_params = (
+        FF = Dict((h, hh) => start.FF[h] for h in factors_sym),
+        ssp = Dict(hh => params.ssp),
+        tau_d = Dict(hh => params.tau_d),
+        alpha = Dict((i, hh) => params.alpha[i] for i in commodities),
+    )
+    household_block = JCGEBlocks.HouseholdDemandBlock(:household, [hh], commodities, factors_sym, hh_params)
+
+    market_block = JCGEBlocks.MarketClearingBlock(:market, commodities, factors_sym)
+
+    price_params = (pWe = start.pWe, pWm = start.pWm)
+    price_block = JCGEBlocks.PriceLinkBlock(:prices, commodities, price_params)
+    numeraire_block = JCGEBlocks.NumeraireBlock(:numeraire, :factor, sam_table.numeraire_factor_label, 1.0)
+
+    blocks = Any[
+        prod_block,
+        factor_block,
+        household_block,
+        market_block,
+        price_block,
+        numeraire_block,
+    ]
     ms = JCGECore.ModelSpec(blocks, sets, mappings)
     closure = JCGECore.ClosureSpec(sam_table.numeraire_factor_label)
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
