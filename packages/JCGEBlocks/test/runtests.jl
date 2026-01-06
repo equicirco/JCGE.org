@@ -93,3 +93,76 @@ end
     JCGECore.build!(block, ctx, spec)
     @test !isempty(ctx.equations)
 end
+
+@testset "JCGEBlocks.GovernmentBlock" begin
+    sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (
+        tau_d = 0.1,
+        tau_z = Dict(:g1 => 0.05, :g2 => 0.05),
+        tau_m = Dict(:g1 => 0.02, :g2 => 0.02),
+        mu = Dict(:g1 => 0.6, :g2 => 0.4),
+        ssg = 0.2,
+    )
+    block = JCGEBlocks.GovernmentBlock(:gov, Symbol[], Symbol[], params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.variables)
+    @test !isempty(ctx.equations)
+end
+
+@testset "JCGEBlocks.InvestmentBlock" begin
+    sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (
+        lambda = Dict(:g1 => 0.6, :g2 => 0.4),
+        Sf = 1.0,
+    )
+    block = JCGEBlocks.InvestmentBlock(:inv, Symbol[], params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.variables)
+    @test !isempty(ctx.equations)
+end
+
+@testset "JCGEBlocks.ArmingtonBlock" begin
+    sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (
+        gamma = Dict(:g1 => 1.0, :g2 => 1.0),
+        delta_m = Dict(:g1 => 0.5, :g2 => 0.5),
+        delta_d = Dict(:g1 => 0.5, :g2 => 0.5),
+        eta = Dict(:g1 => 0.5, :g2 => 0.5),
+        tau_m = Dict(:g1 => 0.1, :g2 => 0.1),
+    )
+    block = JCGEBlocks.ArmingtonBlock(:arm, Symbol[], params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.variables)
+    @test !isempty(ctx.equations)
+end
+
+@testset "JCGEBlocks.TransformationBlock" begin
+    sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (
+        theta = Dict(:g1 => 1.0, :g2 => 1.0),
+        xie = Dict(:g1 => 0.5, :g2 => 0.5),
+        xid = Dict(:g1 => 0.5, :g2 => 0.5),
+        phi = Dict(:g1 => 0.5, :g2 => 0.5),
+        tau_z = Dict(:g1 => 0.1, :g2 => 0.1),
+    )
+    block = JCGEBlocks.TransformationBlock(:cet, Symbol[], params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.variables)
+    @test !isempty(ctx.equations)
+end

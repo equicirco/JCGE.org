@@ -11,6 +11,10 @@ export HouseholdDemandBlock
 export MarketClearingBlock
 export PriceLinkBlock
 export NumeraireBlock
+export GovernmentBlock
+export InvestmentBlock
+export ArmingtonBlock
+export TransformationBlock
 
 "Minimal example block used to validate end-to-end wiring."
 struct DummyBlock <: JCGECore.AbstractBlock
@@ -64,6 +68,31 @@ struct NumeraireBlock <: JCGECore.AbstractBlock
     value::Float64
 end
 
+struct GovernmentBlock <: JCGECore.AbstractBlock
+    name::Symbol
+    commodities::Vector{Symbol}
+    factors::Vector{Symbol}
+    params::NamedTuple
+end
+
+struct InvestmentBlock <: JCGECore.AbstractBlock
+    name::Symbol
+    commodities::Vector{Symbol}
+    params::NamedTuple
+end
+
+struct ArmingtonBlock <: JCGECore.AbstractBlock
+    name::Symbol
+    commodities::Vector{Symbol}
+    params::NamedTuple
+end
+
+struct TransformationBlock <: JCGECore.AbstractBlock
+    name::Symbol
+    commodities::Vector{Symbol}
+    params::NamedTuple
+end
+
 function global_var(base::Symbol, idxs::Symbol...)
     if isempty(idxs)
         return base
@@ -112,6 +141,42 @@ function var_name(block::NumeraireBlock, base::Symbol, idxs::Symbol...)
 end
 
 function register_eq!(ctx::JCGEKernel.KernelContext, block::NumeraireBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+    JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
+    return nothing
+end
+
+function var_name(block::GovernmentBlock, base::Symbol, idxs::Symbol...)
+    return global_var(base, idxs...)
+end
+
+function register_eq!(ctx::JCGEKernel.KernelContext, block::GovernmentBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+    JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
+    return nothing
+end
+
+function var_name(block::InvestmentBlock, base::Symbol, idxs::Symbol...)
+    return global_var(base, idxs...)
+end
+
+function register_eq!(ctx::JCGEKernel.KernelContext, block::InvestmentBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+    JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
+    return nothing
+end
+
+function var_name(block::ArmingtonBlock, base::Symbol, idxs::Symbol...)
+    return global_var(base, idxs...)
+end
+
+function register_eq!(ctx::JCGEKernel.KernelContext, block::ArmingtonBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+    JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
+    return nothing
+end
+
+function var_name(block::TransformationBlock, base::Symbol, idxs::Symbol...)
+    return global_var(base, idxs...)
+end
+
+function register_eq!(ctx::JCGEKernel.KernelContext, block::TransformationBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
@@ -181,23 +246,28 @@ function JCGECore.build!(block::ProductionBlock, ctx::JCGEKernel.KernelContext, 
     end
 
     for i in activities
-        constraint = model isa JuMP.Model ? @NLconstraint(model, Y[i] == JCGECore.getparam(block.params, :b, i) * prod(F[(h, i)] ^ JCGECore.getparam(block.params, :beta, h, i) for h in factors)) : nothing
+        b_i = JCGECore.getparam(block.params, :b, i)
+        beta_vals = Dict(h => JCGECore.getparam(block.params, :beta, h, i) for h in factors)
+        ay_i = JCGECore.getparam(block.params, :ay, i)
+        ax_vals = Dict(j => JCGECore.getparam(block.params, :ax, j, i) for j in commodities)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, Y[i] == b_i * prod(F[(h, i)] ^ beta_vals[h] for h in factors)) : nothing
         register_eq!(ctx, block, :eqpy, i; info="Y[i] == b[i] * prod(F[h,i]^beta[h,i])", constraint=constraint)
 
         for h in factors
-            constraint = model isa JuMP.Model ? @NLconstraint(model, F[(h, i)] == JCGECore.getparam(block.params, :beta, h, i) * py[i] * Y[i] / pf[h]) : nothing
+            constraint = model isa JuMP.Model ? @NLconstraint(model, F[(h, i)] == beta_vals[h] * py[i] * Y[i] / pf[h]) : nothing
             register_eq!(ctx, block, :eqF, h, i; info="F[h,i] == beta[h,i] * py[i] * Y[i] / pf[h]", constraint=constraint)
         end
 
         for j in commodities
-            constraint = model isa JuMP.Model ? @constraint(model, X[(j, i)] == JCGECore.getparam(block.params, :ax, j, i) * Z[i]) : nothing
+            constraint = model isa JuMP.Model ? @constraint(model, X[(j, i)] == ax_vals[j] * Z[i]) : nothing
             register_eq!(ctx, block, :eqX, j, i; info="X[j,i] == ax[j,i] * Z[i]", constraint=constraint)
         end
 
-        constraint = model isa JuMP.Model ? @constraint(model, Y[i] == JCGECore.getparam(block.params, :ay, i) * Z[i]) : nothing
+        constraint = model isa JuMP.Model ? @constraint(model, Y[i] == ay_i * Z[i]) : nothing
         register_eq!(ctx, block, :eqY, i; info="Y[i] == ay[i] * Z[i]", constraint=constraint)
 
-        constraint = model isa JuMP.Model ? @constraint(model, pz[i] == JCGECore.getparam(block.params, :ay, i) * py[i] + sum(JCGECore.getparam(block.params, :ax, j, i) * pq[j] for j in commodities)) : nothing
+        constraint = model isa JuMP.Model ? @constraint(model, pz[i] == ay_i * py[i] + sum(ax_vals[j] * pq[j] for j in commodities)) : nothing
         register_eq!(ctx, block, :eqpzs, i; info="pz[i] == ay[i]*py[i] + sum(ax[j,i]*pq[j])", constraint=constraint)
     end
 
@@ -210,7 +280,8 @@ function JCGECore.build!(block::FactorSupplyBlock, ctx::JCGEKernel.KernelContext
 
     for h in factors
         var = ensure_var!(ctx, model, var_name(block, :FF, h))
-        constraint = model isa JuMP.Model ? @constraint(model, var == JCGECore.getparam(block.params, :FF, h)) : nothing
+    ff_h = JCGECore.getparam(block.params, :FF, h)
+    constraint = model isa JuMP.Model ? @constraint(model, var == ff_h) : nothing
         register_eq!(ctx, block, :eqFF, h; info="FF[h] == endowment[h]", constraint=constraint)
     end
 
@@ -249,17 +320,22 @@ function JCGECore.build!(block::HouseholdDemandBlock, ctx::JCGEKernel.KernelCont
     end
 
     for hh in households
-        constraint = model isa JuMP.Model ? @constraint(model, Y[hh] == sum(pf[h] * JCGECore.getparam(block.params, :FF, h, hh) for h in factors)) : nothing
+        ff_vals = Dict(h => JCGECore.getparam(block.params, :FF, h, hh) for h in factors)
+        ssp_hh = JCGECore.getparam(block.params, :ssp, hh)
+        tau_d_hh = JCGECore.getparam(block.params, :tau_d, hh)
+        alpha_vals = Dict(i => JCGECore.getparam(block.params, :alpha, i, hh) for i in commodities)
+
+        constraint = model isa JuMP.Model ? @constraint(model, Y[hh] == sum(pf[h] * ff_vals[h] for h in factors)) : nothing
         register_eq!(ctx, block, :eqY, hh; info="Y[hh] == sum(pf[h] * FF[h,hh])", constraint=constraint)
 
-        constraint = model isa JuMP.Model ? @constraint(model, Sp[hh] == JCGECore.getparam(block.params, :ssp, hh) * Y[hh]) : nothing
+        constraint = model isa JuMP.Model ? @constraint(model, Sp[hh] == ssp_hh * Y[hh]) : nothing
         register_eq!(ctx, block, :eqSp, hh; info="Sp[hh] == ssp[hh] * Y[hh]", constraint=constraint)
 
-        constraint = model isa JuMP.Model ? @constraint(model, Td[hh] == JCGECore.getparam(block.params, :tau_d, hh) * Y[hh]) : nothing
+        constraint = model isa JuMP.Model ? @constraint(model, Td[hh] == tau_d_hh * Y[hh]) : nothing
         register_eq!(ctx, block, :eqTd, hh; info="Td[hh] == tau_d[hh] * Y[hh]", constraint=constraint)
 
         for i in commodities
-            constraint = model isa JuMP.Model ? @NLconstraint(model, Xp[(i, hh)] == JCGECore.getparam(block.params, :alpha, i, hh) * (Y[hh] - Sp[hh] - Td[hh]) / pq[i]) : nothing
+            constraint = model isa JuMP.Model ? @NLconstraint(model, Xp[(i, hh)] == alpha_vals[i] * (Y[hh] - Sp[hh] - Td[hh]) / pq[i]) : nothing
             register_eq!(ctx, block, :eqXp, i, hh; info="Xp[i,hh] == alpha[i,hh] * (Y - Sp - Td) / pq[i]", constraint=constraint)
         end
     end
@@ -329,10 +405,12 @@ function JCGECore.build!(block::PriceLinkBlock, ctx::JCGEKernel.KernelContext, s
     end
 
     for i in commodities
-        constraint = model isa JuMP.Model ? @constraint(model, pe[i] == epsilon * JCGECore.getparam(block.params, :pWe, i)) : nothing
+        pWe_i = JCGECore.getparam(block.params, :pWe, i)
+        pWm_i = JCGECore.getparam(block.params, :pWm, i)
+        constraint = model isa JuMP.Model ? @constraint(model, pe[i] == epsilon * pWe_i) : nothing
         register_eq!(ctx, block, :eqpe, i; info="pe[i] == epsilon * pWe[i]", constraint=constraint)
 
-        constraint = model isa JuMP.Model ? @constraint(model, pm[i] == epsilon * JCGECore.getparam(block.params, :pWm, i)) : nothing
+        constraint = model isa JuMP.Model ? @constraint(model, pm[i] == epsilon * pWm_i) : nothing
         register_eq!(ctx, block, :eqpm, i; info="pm[i] == epsilon * pWm[i]", constraint=constraint)
     end
 
@@ -356,6 +434,176 @@ function JCGECore.build!(block::NumeraireBlock, ctx::JCGEKernel.KernelContext, s
         end
     end
     register_eq!(ctx, block, :numeraire; info="numeraire fixed", constraint=nothing)
+    return nothing
+end
+
+function JCGECore.build!(block::GovernmentBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
+    factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
+    model = ctx.model
+
+    Td = ensure_var!(ctx, model, global_var(:Td))
+    Sg = ensure_var!(ctx, model, global_var(:Sg))
+    Tz = Dict{Symbol,Any}()
+    Tm = Dict{Symbol,Any}()
+    Xg = Dict{Symbol,Any}()
+    pz = Dict{Symbol,Any}()
+    pm = Dict{Symbol,Any}()
+    Z = Dict{Symbol,Any}()
+    M = Dict{Symbol,Any}()
+    pq = Dict{Symbol,Any}()
+    pf = Dict{Symbol,Any}()
+    FF = Dict{Symbol,Any}()
+
+    for i in commodities
+        Tz[i] = ensure_var!(ctx, model, global_var(:Tz, i))
+        Tm[i] = ensure_var!(ctx, model, global_var(:Tm, i))
+        Xg[i] = ensure_var!(ctx, model, global_var(:Xg, i))
+        pz[i] = ensure_var!(ctx, model, global_var(:pz, i))
+        pm[i] = ensure_var!(ctx, model, global_var(:pm, i))
+        Z[i] = ensure_var!(ctx, model, global_var(:Z, i))
+        M[i] = ensure_var!(ctx, model, global_var(:M, i))
+        pq[i] = ensure_var!(ctx, model, global_var(:pq, i))
+    end
+
+    for h in factors
+        pf[h] = ensure_var!(ctx, model, global_var(:pf, h))
+        FF[h] = ensure_var!(ctx, model, global_var(:FF, h))
+    end
+
+    tau_d = JCGECore.getparam(block.params, :tau_d)
+    constraint = model isa JuMP.Model ? @constraint(model, Td == tau_d * sum(pf[h] * FF[h] for h in factors)) : nothing
+    register_eq!(ctx, block, :eqTd; info="Td == tau_d * sum(pf[h] * FF[h])", constraint=constraint)
+
+    for i in commodities
+        tau_z_i = JCGECore.getparam(block.params, :tau_z, i)
+        tau_m_i = JCGECore.getparam(block.params, :tau_m, i)
+        mu_i = JCGECore.getparam(block.params, :mu, i)
+        constraint = model isa JuMP.Model ? @constraint(model, Tz[i] == tau_z_i * pz[i] * Z[i]) : nothing
+        register_eq!(ctx, block, :eqTz, i; info="Tz[i] == tau_z[i] * pz[i] * Z[i]", constraint=constraint)
+
+        constraint = model isa JuMP.Model ? @constraint(model, Tm[i] == tau_m_i * pm[i] * M[i]) : nothing
+        register_eq!(ctx, block, :eqTm, i; info="Tm[i] == tau_m[i] * pm[i] * M[i]", constraint=constraint)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, Xg[i] == mu_i * (Td + sum(Tz[j] for j in commodities) + sum(Tm[j] for j in commodities) - Sg) / pq[i]) : nothing
+        register_eq!(ctx, block, :eqXg, i; info="Xg[i] == mu[i] * (Td + sum(Tz)+sum(Tm) - Sg) / pq[i]", constraint=constraint)
+    end
+
+    ssg = JCGECore.getparam(block.params, :ssg)
+    constraint = model isa JuMP.Model ? @constraint(model, Sg == ssg * (Td + sum(Tz[i] for i in commodities) + sum(Tm[i] for i in commodities))) : nothing
+    register_eq!(ctx, block, :eqSg; info="Sg == ssg * (Td + sum(Tz) + sum(Tm))", constraint=constraint)
+
+    return nothing
+end
+
+function JCGECore.build!(block::InvestmentBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
+    model = ctx.model
+
+    Sp = ensure_var!(ctx, model, global_var(:Sp))
+    Sg = ensure_var!(ctx, model, global_var(:Sg))
+    Xv = Dict{Symbol,Any}()
+    pq = Dict{Symbol,Any}()
+    epsilon = ensure_var!(ctx, model, global_var(:epsilon))
+
+    for i in commodities
+        Xv[i] = ensure_var!(ctx, model, global_var(:Xv, i))
+        pq[i] = ensure_var!(ctx, model, global_var(:pq, i))
+    end
+
+    Sf = JCGECore.getparam(block.params, :Sf)
+    for i in commodities
+        lambda_i = JCGECore.getparam(block.params, :lambda, i)
+        constraint = model isa JuMP.Model ? @NLconstraint(model, Xv[i] == lambda_i * (Sp + Sg + epsilon * Sf) / pq[i]) : nothing
+        register_eq!(ctx, block, :eqXv, i; info="Xv[i] == lambda[i] * (Sp + Sg + epsilon*Sf) / pq[i]", constraint=constraint)
+    end
+
+    return nothing
+end
+
+function JCGECore.build!(block::ArmingtonBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
+    model = ctx.model
+
+    Q = Dict{Symbol,Any}()
+    M = Dict{Symbol,Any}()
+    D = Dict{Symbol,Any}()
+    pq = Dict{Symbol,Any}()
+    pm = Dict{Symbol,Any}()
+    pd = Dict{Symbol,Any}()
+
+    for i in commodities
+        Q[i] = ensure_var!(ctx, model, global_var(:Q, i))
+        M[i] = ensure_var!(ctx, model, global_var(:M, i))
+        D[i] = ensure_var!(ctx, model, global_var(:D, i))
+        pq[i] = ensure_var!(ctx, model, global_var(:pq, i))
+        pm[i] = ensure_var!(ctx, model, global_var(:pm, i))
+        pd[i] = ensure_var!(ctx, model, global_var(:pd, i))
+    end
+
+    for i in commodities
+        gamma_i = JCGECore.getparam(block.params, :gamma, i)
+        delta_m_i = JCGECore.getparam(block.params, :delta_m, i)
+        delta_d_i = JCGECore.getparam(block.params, :delta_d, i)
+        eta_i = JCGECore.getparam(block.params, :eta, i)
+        tau_m_i = JCGECore.getparam(block.params, :tau_m, i)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, Q[i] == gamma_i *
+            (delta_m_i * M[i] ^ eta_i + delta_d_i * D[i] ^ eta_i) ^ (1 / eta_i)) : nothing
+        register_eq!(ctx, block, :eqQ, i; info="Q[i] == gamma[i]*(delta_m*M^eta + delta_d*D^eta)^(1/eta)", constraint=constraint)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, M[i] ==
+            (gamma_i ^ eta_i * delta_m_i * pq[i] / ((1 + tau_m_i) * pm[i])) ^ (1 / (1 - eta_i)) * Q[i]) : nothing
+        register_eq!(ctx, block, :eqM, i; info="M[i] == (...) * Q[i]", constraint=constraint)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, D[i] ==
+            (gamma_i ^ eta_i * delta_d_i * pq[i] / pd[i]) ^ (1 / (1 - eta_i)) * Q[i]) : nothing
+        register_eq!(ctx, block, :eqD, i; info="D[i] == (...) * Q[i]", constraint=constraint)
+    end
+
+    return nothing
+end
+
+function JCGECore.build!(block::TransformationBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
+    model = ctx.model
+
+    Z = Dict{Symbol,Any}()
+    E = Dict{Symbol,Any}()
+    D = Dict{Symbol,Any}()
+    pz = Dict{Symbol,Any}()
+    pe = Dict{Symbol,Any}()
+    pd = Dict{Symbol,Any}()
+
+    for i in commodities
+        Z[i] = ensure_var!(ctx, model, global_var(:Z, i))
+        E[i] = ensure_var!(ctx, model, global_var(:E, i))
+        D[i] = ensure_var!(ctx, model, global_var(:D, i))
+        pz[i] = ensure_var!(ctx, model, global_var(:pz, i))
+        pe[i] = ensure_var!(ctx, model, global_var(:pe, i))
+        pd[i] = ensure_var!(ctx, model, global_var(:pd, i))
+    end
+
+    for i in commodities
+        theta_i = JCGECore.getparam(block.params, :theta, i)
+        xie_i = JCGECore.getparam(block.params, :xie, i)
+        xid_i = JCGECore.getparam(block.params, :xid, i)
+        phi_i = JCGECore.getparam(block.params, :phi, i)
+        tau_z_i = JCGECore.getparam(block.params, :tau_z, i)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, Z[i] == theta_i *
+            (xie_i * E[i] ^ phi_i + xid_i * D[i] ^ phi_i) ^ (1 / phi_i)) : nothing
+        register_eq!(ctx, block, :eqZ, i; info="Z[i] == theta[i]*(xie*E^phi + xid*D^phi)^(1/phi)", constraint=constraint)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, E[i] ==
+            (theta_i ^ phi_i * xie_i * (1 + tau_z_i) * pz[i] / pe[i]) ^ (1 / (1 - phi_i)) * Z[i]) : nothing
+        register_eq!(ctx, block, :eqE, i; info="E[i] == (...) * Z[i]", constraint=constraint)
+
+        constraint = model isa JuMP.Model ? @NLconstraint(model, D[i] ==
+            (theta_i ^ phi_i * xid_i * (1 + tau_z_i) * pz[i] / pd[i]) ^ (1 / (1 - phi_i)) * Z[i]) : nothing
+        register_eq!(ctx, block, :eqDs, i; info="D[i] == (...) * Z[i]", constraint=constraint)
+    end
+
     return nothing
 end
 
