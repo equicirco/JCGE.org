@@ -15,7 +15,7 @@ using JCGEKernel
             (:g1, :a2) => 0.0, (:g2, :a2) => 0.0,
         ),
     )
-    block = JCGEBlocks.ProductionBlock(:prod, Symbol[], Symbol[], Symbol[], params)
+    block = JCGEBlocks.ProductionBlock(:prod, Symbol[], Symbol[], Symbol[], :cd_leontief, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -24,14 +24,14 @@ using JCGEKernel
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.CobbDouglasProductionBlock" begin
+@testset "JCGEBlocks.ProductionCDBlock" begin
     sets = JCGECore.Sets([:g1], [:a1], [:lab], [:hh])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (
         b = Dict(:a1 => 1.0),
         beta = Dict((:lab, :a1) => 1.0),
     )
-    block = JCGEBlocks.CobbDouglasProductionBlock(:cd_prod, Symbol[], Symbol[], params)
+    block = JCGEBlocks.ProductionBlock(:cd_prod, Symbol[], Symbol[], Symbol[], :cd, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -53,14 +53,14 @@ end
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.HouseholdDemandSimpleBlock" begin
+@testset "JCGEBlocks.HouseholdDemandCDBlock" begin
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (
         FF = Dict(:lab => 10.0),
         alpha = Dict(:g1 => 0.6, :g2 => 0.4),
     )
-    block = JCGEBlocks.HouseholdDemandSimpleBlock(:hh_simple, Symbol[], Symbol[], params)
+    block = JCGEBlocks.HouseholdDemandBlock(:hh_simple, Symbol[], Symbol[], Symbol[], :cd, :X, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -69,14 +69,14 @@ end
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.HouseholdDemandAggregateBlock" begin
+@testset "JCGEBlocks.HouseholdDemandCDXpBlock" begin
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (
         FF = Dict(:lab => 10.0),
         alpha = Dict(:g1 => 0.6, :g2 => 0.4),
     )
-    block = JCGEBlocks.HouseholdDemandAggregateBlock(:hh_agg, Symbol[], Symbol[], params)
+    block = JCGEBlocks.HouseholdDemandBlock(:hh_agg, Symbol[], Symbol[], Symbol[], :cd, :Xp, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -85,7 +85,7 @@ end
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.HouseholdDemandBlock" begin
+@testset "JCGEBlocks.HouseholdDemandCDHHBlock" begin
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (
@@ -94,7 +94,7 @@ end
         tau_d = Dict(:hh1 => 0.1),
         alpha = Dict((:g1, :hh1) => 0.6, (:g2, :hh1) => 0.4),
     )
-    block = JCGEBlocks.HouseholdDemandBlock(:hh, Symbol[], Symbol[], Symbol[], params)
+    block = JCGEBlocks.HouseholdDemandBlock(:hh, [:hh1], Symbol[], Symbol[], :cd, :Xp, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -254,7 +254,7 @@ end
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.ArmingtonBlock" begin
+@testset "JCGEBlocks.ArmingtonCESBlock" begin
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (
@@ -264,7 +264,7 @@ end
         eta = Dict(:g1 => 0.5, :g2 => 0.5),
         tau_m = Dict(:g1 => 0.1, :g2 => 0.1),
     )
-    block = JCGEBlocks.ArmingtonBlock(:arm, Symbol[], params)
+    block = JCGEBlocks.ArmingtonCESBlock(:arm, Symbol[], params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -273,7 +273,7 @@ end
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.TransformationBlock" begin
+@testset "JCGEBlocks.TransformationCETBlock" begin
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (
@@ -283,7 +283,7 @@ end
         phi = Dict(:g1 => 0.5, :g2 => 0.5),
         tau_z = Dict(:g1 => 0.1, :g2 => 0.1),
     )
-    block = JCGEBlocks.TransformationBlock(:cet, Symbol[], params)
+    block = JCGEBlocks.TransformationCETBlock(:cet, Symbol[], params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -311,7 +311,7 @@ end
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (alpha = Dict((:g1, :hh1) => 0.6, (:g2, :hh1) => 0.4),)
-    block = JCGEBlocks.UtilityBlock(:util, [:hh1], [:g1, :g2], params)
+    block = JCGEBlocks.UtilityBlock(:util, [:hh1], [:g1, :g2], :cd, :Xp, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -319,11 +319,11 @@ end
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.UtilityCobbDouglasBlock" begin
+@testset "JCGEBlocks.UtilityCDBlock" begin
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (alpha = Dict(:g1 => 0.6, :g2 => 0.4),)
-    block = JCGEBlocks.UtilityCobbDouglasBlock(:util_cd, Symbol[], params)
+    block = JCGEBlocks.UtilityBlock(:util_cd, Symbol[], Symbol[], :cd, :X, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()
@@ -331,11 +331,11 @@ end
     @test !isempty(ctx.equations)
 end
 
-@testset "JCGEBlocks.UtilityCobbDouglasXpBlock" begin
+@testset "JCGEBlocks.UtilityCDXpBlock" begin
     sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
     mappings = JCGECore.Mappings(Dict(:a1 => :g1))
     params = (alpha = Dict(:g1 => 0.6, :g2 => 0.4),)
-    block = JCGEBlocks.UtilityCobbDouglasXpBlock(:util_xp, Symbol[], params)
+    block = JCGEBlocks.UtilityBlock(:util_xp, Symbol[], Symbol[], :cd, :Xp, params)
     ms = JCGECore.ModelSpec(Any[block], sets, mappings)
     spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
     ctx = JCGEKernel.KernelContext()

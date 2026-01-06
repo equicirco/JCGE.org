@@ -53,7 +53,7 @@ function model(; sam_table::Union{Nothing,JCGECalibrate.SAMTable} = nothing,
     mappings = JCGECore.Mappings(Dict(a => a for a in activities))
 
     prod_params = (b = params.b, beta = params.beta, ay = params.ay, ax = params.ax)
-    prod_block = JCGEBlocks.ProductionBlock(:prod, activities, factors_sym, commodities, prod_params)
+    prod_block = JCGEBlocks.ProductionBlock(:prod, activities, factors_sym, commodities, :cd_leontief, prod_params)
 
     factor_market_block = JCGEBlocks.FactorMarketClearingBlock(:factor_market, activities, factors_sym, (FF = start.FF,))
 
@@ -70,7 +70,7 @@ function model(; sam_table::Union{Nothing,JCGECalibrate.SAMTable} = nothing,
     saving_block = JCGEBlocks.PrivateSavingBlock(:private_saving, factors_sym, (ssp = params.ssp, FF = start.FF))
 
     hh_params = (alpha = params.alpha, FF = start.FF)
-    household_block = JCGEBlocks.HouseholdDemandAggregateBlock(:household, commodities, factors_sym, hh_params)
+    household_block = JCGEBlocks.HouseholdDemandBlock(:household, Symbol[], commodities, factors_sym, :cd, :Xp, hh_params)
 
     invest_block = JCGEBlocks.InvestmentBlock(:investment, commodities, (lambda = params.lambda, Sf = start.Sf))
 
@@ -95,7 +95,7 @@ function model(; sam_table::Union{Nothing,JCGECalibrate.SAMTable} = nothing,
         eta = params.eta,
         tau_m = start.tau_m,
     )
-    arm_block = JCGEBlocks.ArmingtonBlock(:armington, commodities, arm_params)
+    arm_block = JCGEBlocks.ArmingtonCESBlock(:armington, commodities, arm_params)
 
     trans_params = (
         theta = params.theta,
@@ -104,11 +104,11 @@ function model(; sam_table::Union{Nothing,JCGECalibrate.SAMTable} = nothing,
         phi = params.phi,
         tau_z = start.tau_z,
     )
-    trans_block = JCGEBlocks.TransformationBlock(:transformation, commodities, trans_params)
+    trans_block = JCGEBlocks.TransformationCETBlock(:transformation, commodities, trans_params)
 
     market_block = JCGEBlocks.CompositeMarketClearingBlock(:market, commodities, activities)
 
-    util_block = JCGEBlocks.UtilityCobbDouglasXpBlock(:utility, commodities, (alpha = params.alpha,))
+    util_block = JCGEBlocks.UtilityBlock(:utility, Symbol[], commodities, :cd, :Xp, (alpha = params.alpha,))
 
     start_vals = Dict{Symbol,Float64}()
     lower_vals = Dict{Symbol,Float64}()

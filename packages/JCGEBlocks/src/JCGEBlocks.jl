@@ -6,11 +6,13 @@ using JuMP
 
 export DummyBlock
 export ProductionBlock
-export CobbDouglasProductionBlock
+export ProductionCDBlock
+export ProductionCDLeontiefBlock
 export FactorSupplyBlock
 export HouseholdDemandBlock
-export HouseholdDemandSimpleBlock
-export HouseholdDemandAggregateBlock
+export HouseholdDemandCDBlock
+export HouseholdDemandCDXpBlock
+export HouseholdDemandCDHHBlock
 export MarketClearingBlock
 export GoodsMarketClearingBlock
 export FactorMarketClearingBlock
@@ -22,12 +24,13 @@ export NumeraireBlock
 export GovernmentBlock
 export PrivateSavingBlock
 export InvestmentBlock
-export ArmingtonBlock
-export TransformationBlock
+export ArmingtonCESBlock
+export TransformationCETBlock
 export ClosureBlock
 export UtilityBlock
-export UtilityCobbDouglasBlock
-export UtilityCobbDouglasXpBlock
+export UtilityCDBlock
+export UtilityCDXpBlock
+export UtilityCDHHBlock
 export ExternalBalanceBlock
 export ExternalBalanceVarPriceBlock
 export ForeignTradeBlock
@@ -52,13 +55,22 @@ struct ProductionBlock <: JCGECore.AbstractBlock
     activities::Vector{Symbol}
     factors::Vector{Symbol}
     commodities::Vector{Symbol}
+    form::Symbol
     params::NamedTuple
 end
 
-struct CobbDouglasProductionBlock <: JCGECore.AbstractBlock
+struct ProductionCDBlock <: JCGECore.AbstractBlock
     name::Symbol
     activities::Vector{Symbol}
     factors::Vector{Symbol}
+    params::NamedTuple
+end
+
+struct ProductionCDLeontiefBlock <: JCGECore.AbstractBlock
+    name::Symbol
+    activities::Vector{Symbol}
+    factors::Vector{Symbol}
+    commodities::Vector{Symbol}
     params::NamedTuple
 end
 
@@ -73,18 +85,28 @@ struct HouseholdDemandBlock <: JCGECore.AbstractBlock
     households::Vector{Symbol}
     commodities::Vector{Symbol}
     factors::Vector{Symbol}
+    form::Symbol
+    consumption_var::Symbol
     params::NamedTuple
 end
 
-struct HouseholdDemandSimpleBlock <: JCGECore.AbstractBlock
+struct HouseholdDemandCDBlock <: JCGECore.AbstractBlock
     name::Symbol
     commodities::Vector{Symbol}
     factors::Vector{Symbol}
     params::NamedTuple
 end
 
-struct HouseholdDemandAggregateBlock <: JCGECore.AbstractBlock
+struct HouseholdDemandCDXpBlock <: JCGECore.AbstractBlock
     name::Symbol
+    commodities::Vector{Symbol}
+    factors::Vector{Symbol}
+    params::NamedTuple
+end
+
+struct HouseholdDemandCDHHBlock <: JCGECore.AbstractBlock
+    name::Symbol
+    households::Vector{Symbol}
     commodities::Vector{Symbol}
     factors::Vector{Symbol}
     params::NamedTuple
@@ -156,13 +178,13 @@ struct InvestmentBlock <: JCGECore.AbstractBlock
     params::NamedTuple
 end
 
-struct ArmingtonBlock <: JCGECore.AbstractBlock
+struct ArmingtonCESBlock <: JCGECore.AbstractBlock
     name::Symbol
     commodities::Vector{Symbol}
     params::NamedTuple
 end
 
-struct TransformationBlock <: JCGECore.AbstractBlock
+struct TransformationCETBlock <: JCGECore.AbstractBlock
     name::Symbol
     commodities::Vector{Symbol}
     params::NamedTuple
@@ -177,17 +199,26 @@ struct UtilityBlock <: JCGECore.AbstractBlock
     name::Symbol
     households::Vector{Symbol}
     commodities::Vector{Symbol}
+    form::Symbol
+    consumption_var::Symbol
     params::NamedTuple
 end
 
-struct UtilityCobbDouglasBlock <: JCGECore.AbstractBlock
+struct UtilityCDBlock <: JCGECore.AbstractBlock
     name::Symbol
     commodities::Vector{Symbol}
     params::NamedTuple
 end
 
-struct UtilityCobbDouglasXpBlock <: JCGECore.AbstractBlock
+struct UtilityCDXpBlock <: JCGECore.AbstractBlock
     name::Symbol
+    commodities::Vector{Symbol}
+    params::NamedTuple
+end
+
+struct UtilityCDHHBlock <: JCGECore.AbstractBlock
+    name::Symbol
+    households::Vector{Symbol}
     commodities::Vector{Symbol}
     params::NamedTuple
 end
@@ -238,21 +269,21 @@ function register_eq!(ctx::JCGEKernel.KernelContext, block::FactorSupplyBlock, t
     return nothing
 end
 
-function var_name(block::HouseholdDemandBlock, base::Symbol, idxs::Symbol...)
+function var_name(block::HouseholdDemandCDHHBlock, base::Symbol, idxs::Symbol...)
     return global_var(base, idxs...)
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::HouseholdDemandBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::HouseholdDemandCDHHBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::HouseholdDemandSimpleBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::HouseholdDemandCDBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::HouseholdDemandAggregateBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::HouseholdDemandCDXpBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
@@ -332,20 +363,20 @@ function register_eq!(ctx::JCGEKernel.KernelContext, block::InvestmentBlock, tag
     return nothing
 end
 
-function var_name(block::ArmingtonBlock, base::Symbol, idxs::Symbol...)
+function var_name(block::ArmingtonCESBlock, base::Symbol, idxs::Symbol...)
     return global_var(base, idxs...)
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::ArmingtonBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::ArmingtonCESBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
 
-function var_name(block::TransformationBlock, base::Symbol, idxs::Symbol...)
+function var_name(block::TransformationCETBlock, base::Symbol, idxs::Symbol...)
     return global_var(base, idxs...)
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::TransformationBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::TransformationCETBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
@@ -368,12 +399,17 @@ function register_eq!(ctx::JCGEKernel.KernelContext, block::UtilityBlock, tag::S
     return nothing
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::UtilityCobbDouglasBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::UtilityCDBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::UtilityCobbDouglasXpBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::UtilityCDXpBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+    JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
+    return nothing
+end
+
+function register_eq!(ctx::JCGEKernel.KernelContext, block::UtilityCDHHBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
@@ -411,7 +447,7 @@ function register_eq!(ctx::JCGEKernel.KernelContext, block::InitialValuesBlock, 
     return nothing
 end
 
-function var_name(block::ProductionBlock, base::Symbol, idxs::Symbol...)
+function var_name(block::ProductionCDLeontiefBlock, base::Symbol, idxs::Symbol...)
     return global_var(base, idxs...)
 end
 
@@ -432,17 +468,17 @@ function ensure_var!(ctx::JCGEKernel.KernelContext, model, name::Symbol; lower=0
     return v
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::ProductionBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::ProductionCDLeontiefBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
 
-function register_eq!(ctx::JCGEKernel.KernelContext, block::CobbDouglasProductionBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
+function register_eq!(ctx::JCGEKernel.KernelContext, block::ProductionCDBlock, tag::Symbol, idxs::Symbol...; info=nothing, constraint=nothing)
     JCGEKernel.register_equation!(ctx; tag=tag, block=block.name, payload=(indices=idxs, info=info, constraint=constraint))
     return nothing
 end
 
-function JCGECore.build!(block::ProductionBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::ProductionCDLeontiefBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     activities = isempty(block.activities) ? spec.model.sets.activities : block.activities
     factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
@@ -509,7 +545,7 @@ function JCGECore.build!(block::ProductionBlock, ctx::JCGEKernel.KernelContext, 
     return nothing
 end
 
-function JCGECore.build!(block::CobbDouglasProductionBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::ProductionCDBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     activities = isempty(block.activities) ? spec.model.sets.activities : block.activities
     factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
     model = ctx.model
@@ -545,6 +581,18 @@ function JCGECore.build!(block::CobbDouglasProductionBlock, ctx::JCGEKernel.Kern
     return nothing
 end
 
+function JCGECore.build!(block::ProductionBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    if block.form == :cd
+        inner = ProductionCDBlock(block.name, block.activities, block.factors, block.params)
+        return JCGECore.build!(inner, ctx, spec)
+    elseif block.form == :cd_leontief
+        inner = ProductionCDLeontiefBlock(block.name, block.activities, block.factors, block.commodities, block.params)
+        return JCGECore.build!(inner, ctx, spec)
+    else
+        error("Unsupported production form: $(block.form)")
+    end
+end
+
 function JCGECore.build!(block::FactorSupplyBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
     model = ctx.model
@@ -559,7 +607,7 @@ function JCGECore.build!(block::FactorSupplyBlock, ctx::JCGEKernel.KernelContext
     return nothing
 end
 
-function JCGECore.build!(block::HouseholdDemandBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::HouseholdDemandCDHHBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     households = isempty(block.households) ? spec.model.sets.institutions : block.households
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
@@ -614,7 +662,7 @@ function JCGECore.build!(block::HouseholdDemandBlock, ctx::JCGEKernel.KernelCont
     return nothing
 end
 
-function JCGECore.build!(block::HouseholdDemandSimpleBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::HouseholdDemandCDBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
     model = ctx.model
@@ -641,7 +689,7 @@ function JCGECore.build!(block::HouseholdDemandSimpleBlock, ctx::JCGEKernel.Kern
     return nothing
 end
 
-function JCGECore.build!(block::HouseholdDemandAggregateBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::HouseholdDemandCDXpBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     factors = isempty(block.factors) ? spec.model.sets.factors : block.factors
     model = ctx.model
@@ -671,6 +719,25 @@ function JCGECore.build!(block::HouseholdDemandAggregateBlock, ctx::JCGEKernel.K
     end
 
     return nothing
+end
+
+function JCGECore.build!(block::HouseholdDemandBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    if block.form != :cd
+        error("Unsupported household demand form: $(block.form)")
+    end
+    if block.consumption_var == :X
+        inner = HouseholdDemandCDBlock(block.name, block.commodities, block.factors, block.params)
+        return JCGECore.build!(inner, ctx, spec)
+    elseif block.consumption_var == :Xp
+        if isempty(block.households)
+            inner = HouseholdDemandCDXpBlock(block.name, block.commodities, block.factors, block.params)
+            return JCGECore.build!(inner, ctx, spec)
+        end
+        inner = HouseholdDemandCDHHBlock(block.name, block.households, block.commodities, block.factors, block.params)
+        return JCGECore.build!(inner, ctx, spec)
+    else
+        error("Unsupported consumption variable: $(block.consumption_var)")
+    end
 end
 
 function JCGECore.build!(block::MarketClearingBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
@@ -987,7 +1054,7 @@ function JCGECore.build!(block::InvestmentBlock, ctx::JCGEKernel.KernelContext, 
     return nothing
 end
 
-function JCGECore.build!(block::ArmingtonBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::ArmingtonCESBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     model = ctx.model
 
@@ -1030,7 +1097,7 @@ function JCGECore.build!(block::ArmingtonBlock, ctx::JCGEKernel.KernelContext, s
     return nothing
 end
 
-function JCGECore.build!(block::TransformationBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::TransformationCETBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     model = ctx.model
 
@@ -1100,7 +1167,7 @@ function JCGECore.build!(block::ClosureBlock, ctx::JCGEKernel.KernelContext, spe
     return nothing
 end
 
-function JCGECore.build!(block::UtilityBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::UtilityCDHHBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     households = isempty(block.households) ? spec.model.sets.institutions : block.households
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     model = ctx.model
@@ -1123,7 +1190,7 @@ function JCGECore.build!(block::UtilityBlock, ctx::JCGEKernel.KernelContext, spe
     return nothing
 end
 
-function JCGECore.build!(block::UtilityCobbDouglasBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::UtilityCDBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     model = ctx.model
 
@@ -1140,7 +1207,7 @@ function JCGECore.build!(block::UtilityCobbDouglasBlock, ctx::JCGEKernel.KernelC
     return nothing
 end
 
-function JCGECore.build!(block::UtilityCobbDouglasXpBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+function JCGECore.build!(block::UtilityCDXpBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
     commodities = isempty(block.commodities) ? spec.model.sets.commodities : block.commodities
     model = ctx.model
 
@@ -1155,6 +1222,25 @@ function JCGECore.build!(block::UtilityCobbDouglasXpBlock, ctx::JCGEKernel.Kerne
     end
     register_eq!(ctx, block, :objective; info="maximize Cobb-Douglas utility over Xp", constraint=nothing)
     return nothing
+end
+
+function JCGECore.build!(block::UtilityBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)
+    if block.form != :cd
+        error("Unsupported utility form: $(block.form)")
+    end
+    if block.consumption_var == :X
+        inner = UtilityCDBlock(block.name, block.commodities, block.params)
+        return JCGECore.build!(inner, ctx, spec)
+    elseif block.consumption_var == :Xp
+        if isempty(block.households)
+            inner = UtilityCDXpBlock(block.name, block.commodities, block.params)
+            return JCGECore.build!(inner, ctx, spec)
+        end
+        inner = UtilityCDHHBlock(block.name, block.households, block.commodities, block.params)
+        return JCGECore.build!(inner, ctx, spec)
+    else
+        error("Unsupported consumption variable: $(block.consumption_var)")
+    end
 end
 
 function JCGECore.build!(block::ExternalBalanceBlock, ctx::JCGEKernel.KernelContext, spec::JCGECore.RunSpec)

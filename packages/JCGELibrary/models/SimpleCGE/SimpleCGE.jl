@@ -35,13 +35,13 @@ function model(; sam_path::Union{Nothing,AbstractString}=nothing)
         b = b,
         beta = beta,
     )
-    prod_block = JCGEBlocks.CobbDouglasProductionBlock(:prod, goods, factors, prod_params)
+    prod_block = JCGEBlocks.ProductionBlock(:prod, goods, factors, Symbol[], :cd, prod_params)
 
     hh_params = (
         FF = FF,
         alpha = alpha,
     )
-    household_block = JCGEBlocks.HouseholdDemandSimpleBlock(:household, goods, factors, hh_params)
+    household_block = JCGEBlocks.HouseholdDemandBlock(:household, Symbol[], goods, factors, :cd, :X, hh_params)
 
     goods_market_block = JCGEBlocks.GoodsMarketClearingBlock(:goods_market, goods)
 
@@ -51,7 +51,7 @@ function model(; sam_path::Union{Nothing,AbstractString}=nothing)
 
     numeraire_block = JCGEBlocks.NumeraireBlock(:numeraire, :factor, :LAB, 1.0)
 
-    util_block = JCGEBlocks.UtilityCobbDouglasBlock(:utility, goods, (alpha = alpha,))
+    util_block = JCGEBlocks.UtilityBlock(:utility, Symbol[], goods, :cd, :X, (alpha = alpha,))
 
     start_vals = Dict{Symbol,Float64}()
     lower_vals = Dict{Symbol,Float64}()
