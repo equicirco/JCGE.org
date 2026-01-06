@@ -166,3 +166,63 @@ end
     @test !isempty(ctx.variables)
     @test !isempty(ctx.equations)
 end
+
+@testset "JCGEBlocks.ClosureBlock" begin
+    sets = JCGECore.Sets([:g1], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (
+        fixed = Dict(:epsilon => 1.0),
+        equalities = [(Symbol(:pz_g1), Symbol(:pq_g1))],
+    )
+    block = JCGEBlocks.ClosureBlock(:closure, params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.equations)
+end
+
+@testset "JCGEBlocks.UtilityBlock" begin
+    sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (alpha = Dict((:g1, :hh1) => 0.6, (:g2, :hh1) => 0.4),)
+    block = JCGEBlocks.UtilityBlock(:util, [:hh1], [:g1, :g2], params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.equations)
+end
+
+@testset "JCGEBlocks.ExternalBalanceBlock" begin
+    sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (
+        pWe = Dict(:g1 => 1.0, :g2 => 1.0),
+        pWm = Dict(:g1 => 1.0, :g2 => 1.0),
+        Sf = 1.0,
+    )
+    block = JCGEBlocks.ExternalBalanceBlock(:bop, Symbol[], params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.variables)
+    @test !isempty(ctx.equations)
+end
+
+@testset "JCGEBlocks.PriceAggregationBlock" begin
+    sets = JCGECore.Sets([:g1, :g2], [:a1], [:lab], [:hh1])
+    mappings = JCGECore.Mappings(Dict(:a1 => :g1))
+    params = (
+        ay = Dict(:a1 => 1.0),
+        ax = Dict((:g1, :a1) => 0.0, (:g2, :a1) => 0.0),
+    )
+    block = JCGEBlocks.PriceAggregationBlock(:price_agg, Symbol[], Symbol[], params)
+    ms = JCGECore.ModelSpec(Any[block], sets, mappings)
+    spec = JCGECore.RunSpec("BlocksTest", ms, JCGECore.ClosureSpec(:W), JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}()))
+    ctx = JCGEKernel.KernelContext()
+    JCGECore.build!(block, ctx, spec)
+    @test !isempty(ctx.variables)
+    @test !isempty(ctx.equations)
+end
