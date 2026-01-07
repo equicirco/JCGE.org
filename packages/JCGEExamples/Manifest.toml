@@ -2,7 +2,7 @@
 
 julia_version = "1.12.3"
 manifest_format = "2.0"
-project_hash = "a082d6bbe42ca881df54a5ca37832d1867b446a8"
+project_hash = "f8f6102caf5223b2f08842254361d2cd61407fd0"
 
 [[deps.ASL_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -239,7 +239,7 @@ uuid = "9fb9d605-0ed3-4980-82c1-f0874844db5d"
 version = "0.0.0"
 
 [[deps.JCGEExamples]]
-deps = ["Ipopt", "JCGEBlocks", "JCGECalibrate", "JCGECore", "JCGEKernel", "JuMP", "MathOptInterface", "Pkg", "Test"]
+deps = ["Ipopt", "JCGEBlocks", "JCGECalibrate", "JCGECore", "JCGEKernel", "JuMP", "MathOptInterface", "PATHSolver", "Pkg", "Test"]
 path = "."
 uuid = "0291785c-4d3c-45ec-ba8e-d8f5428f97c2"
 version = "0.0.0"
@@ -301,6 +301,11 @@ version = "1.12.0"
 git-tree-sha1 = "dda21b8cbd6a6c40d9d02a73230f9d70fed6918c"
 uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 version = "1.4.0"
+
+[[deps.LazyArtifacts]]
+deps = ["Artifacts", "Pkg"]
+uuid = "4af54fe1-eca0-43a8-85a7-787d91b784e3"
+version = "1.11.0"
 
 [[deps.LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
@@ -451,6 +456,12 @@ version = "0.5.6+0"
 git-tree-sha1 = "05868e21324cede2207c6f0f466b4bfef6d5e7ee"
 uuid = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 version = "1.8.1"
+
+[[deps.PATHSolver]]
+deps = ["LazyArtifacts", "MathOptInterface", "SparseArrays"]
+git-tree-sha1 = "e6b7a138d434be3506a5fd1b1c9ff26b50608a15"
+uuid = "f5f7c340-0bb3-5c69-969a-41884d311d1b"
+version = "1.7.9"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]

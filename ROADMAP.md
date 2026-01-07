@@ -23,3 +23,6 @@ JCGE.jl is a modular, block-based framework for building and running computable 
 - One toy SAM example runs end-to-end and replicates the benchmark within tolerance.
 - Basic validation and diagnostics are present (Walras check, budget balance residuals).
 - Each package has tests and minimal documentation.
+# Project Objective (Non-negotiable)
+- This is a block-based CGE tool. Every model must be expressed as a composition of reusable blocks.
+- No standalone model implementations outside the block system; library/examples only wire blocks.

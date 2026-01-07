@@ -2,7 +2,7 @@
 
 julia_version = "1.12.3"
 manifest_format = "2.0"
-project_hash = "90de1d95a81619d587bf9a30d192f7556981bfdf"
+project_hash = "feac04e65a2d24c493129bd30d73ef7ae0d86ec0"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -158,7 +158,7 @@ uuid = "82899510-4779-5014-852e-03e436cf321d"
 version = "1.0.0"
 
 [[deps.JCGEBlocks]]
-deps = ["JCGECore", "JCGEKernel", "JuMP", "Test"]
+deps = ["JCGECore", "JCGEKernel", "JuMP", "MathOptInterface", "Test"]
 path = "."
 uuid = "e7e2410e-b632-4869-8943-8241db0dfb31"
 version = "0.0.0"

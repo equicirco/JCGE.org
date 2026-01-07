@@ -18,5 +18,9 @@ JCGE.jl is a modular, block-based framework for building and running computable 
 - `scripts/`: developer utilities (optional)
 - `data/`: tiny toy datasets only (no large/proprietary files)
 
+## Solvers
+- NLP: Ipopt (via JuMP)
+- MCP: PATH (via PATHSolver.jl; runs without a license for small problems, license required for larger ones: https://pages.cs.wisc.edu/~ferris/path.html)
+
 ## Status
 Pre-release. APIs are unstable until a tagged v0.1.

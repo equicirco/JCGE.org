@@ -124,3 +124,6 @@ JCGEKernel provides:
   - `block` tag (`Symbol`)
   - `tag` (`Symbol`)
 - No “hidden equations”: all model-defining constraints must go through the registry.
+# Project Objective (Non-negotiable)
+- All models must be built from reusable blocks. No ad-hoc or standalone model implementations are allowed outside the block system.
+- The tool’s purpose is a block-based CGE framework; every model must use blocks, and the library/examples are only block compositions.

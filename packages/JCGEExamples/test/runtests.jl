@@ -9,6 +9,7 @@ using JCGEExamples.QuotaCGE
 using JCGEExamples.ScaleEconomyCGE
 using JCGEExamples.DynCGE
 using JCGEExamples.CamCGE
+using JCGEExamples.CamMCP
 using JCGEKernel
 using JCGEBlocks
 using JuMP
@@ -44,6 +45,10 @@ import MathOptInterface as MOI
 
     cam_spec = CamCGE.model()
     @test cam_spec.name == "CamCGE"
+
+    cammcp_spec = CamMCP.model()
+    @test cammcp_spec.name == "CamMCP"
+
 end
 
 if get(ENV, "JCGE_SOLVE_TESTS", "0") == "1"
@@ -161,6 +166,14 @@ if get(ENV, "JCGE_SOLVE_TESTS", "0") == "1"
         end
     end
 end
+
+if get(ENV, "JCGE_MCP_SOLVE", "0") == "1"
+    @testset "JCGEExamples.MCP" begin
+        result_mcp = CamMCP.solve()
+        @test result_mcp.summary.count >= 0
+    end
+end
+
 
 if get(ENV, "JCGE_COMPARE_STANDARD", "0") == "1"
     @testset "JCGEExamples.Compare.StandardCGE" begin
