@@ -199,11 +199,21 @@ end
 if get(ENV, "JCGE_COMPARE_STANDARD", "0") == "1"
     @testset "JCGEExamples.Compare.StandardCGE" begin
         using Pkg
+        using CSV
+        using DataFrames
         Pkg.add("StandardCGE")
         import StandardCGE as StdCGE
 
         sam_path = joinpath(StandardCGE.datadir(), "sam_2_2.csv")
-        sam_table = StdCGE.load_sam_table(sam_path)
+        df = DataFrame(CSV.File(sam_path))
+        if "Column1" ∉ names(df) && "label" ∈ names(df)
+            rename!(df, "label" => "Column1")
+        end
+        tmp_dir = mktempdir()
+        tmp_sam_path = joinpath(tmp_dir, "sam_2_2.csv")
+        CSV.write(tmp_sam_path, df)
+
+        sam_table = StdCGE.load_sam_table(tmp_sam_path)
         std_model, _, _ = StdCGE.solve_model(sam_table; optimizer_attributes=Dict("print_level" => 0))
         std_obj = JuMP.objective_value(std_model)
         std_Xp = JuMP.value.(std_model[:Xp])

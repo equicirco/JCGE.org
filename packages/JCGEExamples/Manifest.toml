@@ -2,7 +2,7 @@
 
 julia_version = "1.12.3"
 manifest_format = "2.0"
-project_hash = "73c896e83295ae7fd7495f1282e257aa4f8cada3"
+project_hash = "49f51019768ff8e5768ddc257e71f30f383cc473"
 
 [[deps.ASL_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -239,7 +239,7 @@ uuid = "9fb9d605-0ed3-4980-82c1-f0874844db5d"
 version = "0.0.0"
 
 [[deps.JCGEExamples]]
-deps = ["Ipopt", "JCGEBlocks", "JCGECalibrate", "JCGECore", "JCGERuntime", "JuMP", "MathOptInterface", "PATHSolver", "Pkg", "Test"]
+deps = ["CSV", "DataFrames", "Ipopt", "JCGEBlocks", "JCGECalibrate", "JCGECore", "JCGERuntime", "JuMP", "MathOptInterface", "PATHSolver", "Pkg", "Test"]
 path = "."
 uuid = "0291785c-4d3c-45ec-ba8e-d8f5428f97c2"
 version = "0.0.0"
