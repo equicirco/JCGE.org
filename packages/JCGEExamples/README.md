@@ -19,6 +19,15 @@ Typical usage should look like:
 - `using JCGEExamples.<ModelName>`
 - `spec = <ModelName>.model()` (returns a spec/object that the framework can build/run)
 
+## RunSpec sections (model structure)
+Models are assembled via named sections to enforce a consistent RunSpec skeleton.
+Canonical section names:
+- `:production`, `:factors`, `:government`, `:savings`, `:households`, `:prices`,
+  `:external`, `:trade`, `:markets`, `:objective`, `:init`, `:closure`
+
+All sections should be present (empty is allowed), and the following must be non-empty:
+- `:production`, `:households`, `:markets`
+
 ## Folder layout
 - `src/`: package module entrypoint
 - `models/<ModelName>/`: module file and all model-specific resources

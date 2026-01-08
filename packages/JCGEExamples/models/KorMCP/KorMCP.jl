@@ -232,38 +232,34 @@ function model()
 
     init_block = JCGEBlocks.initial_values(:init, (start = start_vals, fixed = fixed_vals))
 
-    blocks = Any[
-        trade_block,
-        absorption_block,
-        activity_price_block,
-        capital_price_block,
-        production_block,
-        labor_block,
-        cet_block,
-        armington_block,
-        nontraded_block,
-        inventory_block,
-        household_demand_block,
-        household_income_block,
-        household_tax_block,
-        household_sum_block,
-        government_demand_block,
-        government_revenue_block,
-        premium_block,
-        savings_block,
-        price_index_block,
-        bop_block,
-        market_block,
-        objective_block,
-        init_block,
-    ]
-
-    ms = JCGECore.ModelSpec(blocks, sets, mappings)
     closure = JCGECore.ClosureSpec(:pindex)
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
-    spec = JCGECore.RunSpec("KorMCP", ms, closure, scenario)
-    JCGECore.validate(spec)
-    return spec
+    allowed_sections = JCGECore.allowed_sections()
+    section_blocks = Dict(sym => Any[] for sym in allowed_sections)
+    push!(section_blocks[:production], production_block)
+    push!(section_blocks[:factors], labor_block)
+    push!(section_blocks[:government], government_demand_block, government_revenue_block)
+    push!(section_blocks[:savings], savings_block)
+    push!(section_blocks[:households], household_demand_block, household_income_block, household_tax_block, household_sum_block)
+    push!(section_blocks[:prices], trade_block, absorption_block, activity_price_block, capital_price_block, premium_block, price_index_block)
+    push!(section_blocks[:external], bop_block)
+    push!(section_blocks[:trade], cet_block, armington_block, nontraded_block)
+    push!(section_blocks[:markets], inventory_block, market_block)
+    push!(section_blocks[:objective], objective_block)
+    push!(section_blocks[:init], init_block)
+    sections = [JCGECore.section(sym, section_blocks[sym]) for sym in allowed_sections]
+    required_nonempty = [:production, :households, :markets]
+    return JCGECore.build_spec(
+        "KorMCP",
+        sets,
+        mappings,
+        sections;
+        closure=closure,
+        scenario=scenario,
+        required_sections=allowed_sections,
+        allowed_sections=allowed_sections,
+        required_nonempty=required_nonempty,
+    )
 end
 
 baseline() = model()

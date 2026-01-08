@@ -124,6 +124,12 @@ JCGEKernel provides:
   - `block` tag (`Symbol`)
   - `tag` (`Symbol`)
 - No “hidden equations”: all model-defining constraints must go through the registry.
+# RunSpec section skeleton (v0.1)
+- Models must assemble RunSpecs via **sections** using the canonical section names:
+  - `:production`, `:factors`, `:government`, `:savings`, `:households`, `:prices`,
+    `:external`, `:trade`, `:markets`, `:objective`, `:init`, `:closure`
+- All sections should be present in model assembly even if empty (explicitly empty lists are OK).
+- Required non-empty sections: `:production`, `:households`, `:markets`.
 # Project Objective (Non-negotiable)
 - All models must be built from reusable blocks. No ad-hoc or standalone model implementations are allowed outside the block system.
 - The tool’s purpose is a block-based CGE framework; every model must use blocks, and the library/examples are only block compositions.

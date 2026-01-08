@@ -259,34 +259,36 @@ function model(; sam_path::Union{Nothing,AbstractString} = nothing,
 
     init_block = JCGEBlocks.initial_values(:init, (start = start_vals, lower = lower_vals, fixed = fixed_vals))
 
-    blocks = Any[
-        prod_block,
-        gov_block,
-        saving_block,
-        household_block,
-        price_block,
-        bop_block,
-        arm_block,
-        trans_block,
-        market_block,
-        mobile_block,
-        capital_block,
-        inv_block,
-        inv_alloc_block,
-        util_block,
-        price_level_block,
-        init_block,
-    ]
-
     institutions = [hoh, gov, inv, ext]
     sets = JCGECore.Sets(commodities, activities, factors_sym, institutions)
     mappings = JCGECore.Mappings(Dict(a => a for a in activities))
-    ms = JCGECore.ModelSpec(blocks, sets, mappings)
     closure = JCGECore.ClosureSpec(:PRICE)
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
-    spec = JCGECore.RunSpec("DynCGE", ms, closure, scenario)
-    JCGECore.validate(spec)
-    return spec
+    allowed_sections = JCGECore.allowed_sections()
+    section_blocks = Dict(sym => Any[] for sym in allowed_sections)
+    push!(section_blocks[:production], prod_block)
+    push!(section_blocks[:factors], mobile_block, capital_block)
+    push!(section_blocks[:government], gov_block)
+    push!(section_blocks[:savings], saving_block, inv_block, inv_alloc_block)
+    push!(section_blocks[:households], household_block)
+    push!(section_blocks[:prices], price_block, price_level_block)
+    push!(section_blocks[:external], bop_block)
+    push!(section_blocks[:trade], arm_block, trans_block)
+    push!(section_blocks[:markets], market_block)
+    push!(section_blocks[:objective], util_block)
+    push!(section_blocks[:init], init_block)
+    sections = [JCGECore.section(sym, section_blocks[sym]) for sym in allowed_sections]
+    return JCGECore.build_spec(
+        "DynCGE",
+        sets,
+        mappings,
+        sections;
+        closure=closure,
+        scenario=scenario,
+        required_sections=allowed_sections,
+        allowed_sections=allowed_sections,
+        required_nonempty=[:production, :households, :markets],
+    )
 end
 
 baseline() = model()

@@ -74,25 +74,32 @@ function model(; sam_path::Union{Nothing,AbstractString}=nothing)
     end
     init_block = JCGEBlocks.initial_values(:init, (start = start_vals, lower = lower_vals))
 
-    blocks = Any[
-        prod_block,
-        household_block,
-        goods_market_block,
-        factor_market_block,
-        price_block,
-        init_block,
-        numeraire_block,
-        util_block,
-    ]
-
     sets = JCGECore.Sets(goods, goods, factors, [hh])
     mappings = JCGECore.Mappings(Dict(j => j for j in goods))
-    ms = JCGECore.ModelSpec(blocks, sets, mappings)
     closure = JCGECore.ClosureSpec(:LAB)
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
-    spec = JCGECore.RunSpec("SimpleCGE", ms, closure, scenario)
-    JCGECore.validate(spec)
-    return spec
+    allowed_sections = JCGECore.allowed_sections()
+    section_blocks = Dict(sym => Any[] for sym in allowed_sections)
+    push!(section_blocks[:production], prod_block)
+    push!(section_blocks[:factors], factor_market_block)
+    push!(section_blocks[:households], household_block)
+    push!(section_blocks[:prices], price_block)
+    push!(section_blocks[:markets], goods_market_block)
+    push!(section_blocks[:objective], util_block)
+    push!(section_blocks[:init], init_block)
+    push!(section_blocks[:closure], numeraire_block)
+    sections = [JCGECore.section(sym, section_blocks[sym]) for sym in allowed_sections]
+    return JCGECore.build_spec(
+        "SimpleCGE",
+        sets,
+        mappings,
+        sections;
+        closure=closure,
+        scenario=scenario,
+        required_sections=allowed_sections,
+        allowed_sections=allowed_sections,
+        required_nonempty=[:production, :households, :markets],
+    )
 end
 
 baseline() = model()

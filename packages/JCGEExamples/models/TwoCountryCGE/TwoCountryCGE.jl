@@ -83,7 +83,8 @@ function model(; sam_paths::Dict{Symbol,String}=Dict(
     sets = JCGECore.Sets(commodities, activities, factors_r, institutions)
     mappings = JCGECore.Mappings(Dict(a => a for a in activities))
 
-    blocks = Any[]
+    allowed_sections = JCGECore.allowed_sections()
+    section_blocks = Dict(sym => Any[] for sym in allowed_sections)
     goods_map = build_region_mapping(goods_sym, REGIONS)
     goods_by_region = Dict(r => region_symbols(goods_sym, r) for r in REGIONS)
 
@@ -113,13 +114,13 @@ function model(; sam_paths::Dict{Symbol,String}=Dict(
         end
 
         prod_params = (b = b, beta = beta, ay = ay, ax = ax)
-        push!(blocks, JCGEBlocks.production(:prod, goods_r, factors_rr, goods_r; form=:cd_leontief, params=prod_params))
+        push!(section_blocks[:production], JCGEBlocks.production(:prod, goods_r, factors_rr, goods_r; form=:cd_leontief, params=prod_params))
         ff_vals = Dict{Symbol,Float64}()
         for h in factors_sym
             hsym = region_sym(h, r)
             ff_vals[hsym] = start.FF[h]
         end
-        push!(blocks, JCGEBlocks.factor_market_clearing(:factor_market, goods_r, factors_rr; params=(FF = ff_vals,)))
+        push!(section_blocks[:factors], JCGEBlocks.factor_market_clearing(:factor_market, goods_r, factors_rr; params=(FF = ff_vals,)))
 
         tau_z = Dict{Symbol,Float64}()
         tau_m = Dict{Symbol,Float64}()
@@ -160,25 +161,25 @@ function model(; sam_paths::Dict{Symbol,String}=Dict(
             ssg = param.ssg,
             FF = ff_vals,
         )
-        push!(blocks, JCGEBlocks.government_regional(:government, goods_r, factors_rr, r, gov_params))
-        push!(blocks, JCGEBlocks.private_saving_regional(:private_saving, factors_rr, r, (ssp = param.ssp, FF = ff_vals)))
-        push!(blocks, JCGEBlocks.household_demand_regional(:household, goods_r, factors_rr, r; params=(alpha = alpha, FF = ff_vals)))
-        push!(blocks, JCGEBlocks.investment_regional(:investment, goods_r, r, (lambda = lambda, Sf = start.Sf)))
-        push!(blocks, JCGEBlocks.exchange_rate_link_region(:prices, goods_r, r))
-        push!(blocks, JCGEBlocks.external_balance_var_price(:bop, goods_r, (Sf = start.Sf,)))
-        push!(blocks, JCGEBlocks.armington(:armington, goods_r, (gamma = gamma, delta_m = delta_m, delta_d = delta_d, eta = eta, tau_m = tau_m)))
-        push!(blocks, JCGEBlocks.transformation(:transformation, goods_r, (theta = theta, xie = xie, xid = xid, phi = phi, tau_z = tau_z)))
-        push!(blocks, JCGEBlocks.composite_market_clearing(:market, goods_r, goods_r))
+        push!(section_blocks[:government], JCGEBlocks.government_regional(:government, goods_r, factors_rr, r, gov_params))
+        push!(section_blocks[:savings], JCGEBlocks.private_saving_regional(:private_saving, factors_rr, r, (ssp = param.ssp, FF = ff_vals)))
+        push!(section_blocks[:households], JCGEBlocks.household_demand_regional(:household, goods_r, factors_rr, r; params=(alpha = alpha, FF = ff_vals)))
+        push!(section_blocks[:savings], JCGEBlocks.investment_regional(:investment, goods_r, r, (lambda = lambda, Sf = start.Sf)))
+        push!(section_blocks[:prices], JCGEBlocks.exchange_rate_link_region(:prices, goods_r, r))
+        push!(section_blocks[:external], JCGEBlocks.external_balance_var_price(:bop, goods_r, (Sf = start.Sf,)))
+        push!(section_blocks[:trade], JCGEBlocks.armington(:armington, goods_r, (gamma = gamma, delta_m = delta_m, delta_d = delta_d, eta = eta, tau_m = tau_m)))
+        push!(section_blocks[:trade], JCGEBlocks.transformation(:transformation, goods_r, (theta = theta, xie = xie, xid = xid, phi = phi, tau_z = tau_z)))
+        push!(section_blocks[:markets], JCGEBlocks.composite_market_clearing(:market, goods_r, goods_r))
     end
 
-    push!(blocks, JCGEBlocks.international_market(:world, goods_sym, REGIONS, goods_map))
+    push!(section_blocks[:external], JCGEBlocks.international_market(:world, goods_sym, REGIONS, goods_map))
     alpha_reg = Dict{Symbol,Float64}()
     for r in REGIONS
         for g in goods_sym
             alpha_reg[goods_map[(g, r)]] = params[r].alpha[g]
         end
     end
-    push!(blocks, JCGEBlocks.utility_regional(:utility, goods_by_region, (alpha = alpha_reg,)))
+    push!(section_blocks[:objective], JCGEBlocks.utility_regional(:utility, goods_by_region, (alpha = alpha_reg,)))
 
     start_vals = Dict{Symbol,Float64}()
     lower_vals = Dict{Symbol,Float64}()
@@ -245,14 +246,22 @@ function model(; sam_paths::Dict{Symbol,String}=Dict(
     end
     fixed_vals[JCGEBlocks.global_var(:epsilon, :USA)] = 1.0
 
-    push!(blocks, JCGEBlocks.initial_values(:init, (start = start_vals, lower = lower_vals, fixed = fixed_vals)))
+    push!(section_blocks[:init], JCGEBlocks.initial_values(:init, (start = start_vals, lower = lower_vals, fixed = fixed_vals)))
 
-    ms = JCGECore.ModelSpec(blocks, sets, mappings)
+    sections = [JCGECore.section(sym, section_blocks[sym]) for sym in allowed_sections]
     closure = JCGECore.ClosureSpec(Symbol(numeraire_factor_label))
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
-    spec = JCGECore.RunSpec("TwoCountryCGE", ms, closure, scenario)
-    JCGECore.validate(spec)
-    return spec
+    return JCGECore.build_spec(
+        "TwoCountryCGE",
+        sets,
+        mappings,
+        sections;
+        closure=closure,
+        scenario=scenario,
+        required_sections=allowed_sections,
+        allowed_sections=allowed_sections,
+        required_nonempty=[:production, :households, :markets],
+    )
 end
 
 baseline() = model()

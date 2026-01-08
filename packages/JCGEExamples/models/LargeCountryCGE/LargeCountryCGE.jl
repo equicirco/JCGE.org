@@ -160,30 +160,34 @@ function model(; sam_table::Union{Nothing,JCGECalibrate.SAMTable} = nothing,
 
     numeraire_block = JCGEBlocks.numeraire(:numeraire, :factor, sam_table.numeraire_factor_label, 1.0)
 
-    blocks = Any[
-        prod_block,
-        factor_market_block,
-        gov_block,
-        saving_block,
-        household_block,
-        invest_block,
-        price_block,
-        bop_block,
-        foreign_block,
-        arm_block,
-        trans_block,
-        market_block,
-        util_block,
-        init_block,
-        numeraire_block,
-    ]
-
-    ms = JCGECore.ModelSpec(blocks, sets, mappings)
     closure = JCGECore.ClosureSpec(sam_table.numeraire_factor_label)
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
-    spec = JCGECore.RunSpec("LargeCountryCGE", ms, closure, scenario)
-    JCGECore.validate(spec)
-    return spec
+    allowed_sections = JCGECore.allowed_sections()
+    section_blocks = Dict(sym => Any[] for sym in allowed_sections)
+    push!(section_blocks[:production], prod_block)
+    push!(section_blocks[:factors], factor_market_block)
+    push!(section_blocks[:government], gov_block)
+    push!(section_blocks[:savings], saving_block, invest_block)
+    push!(section_blocks[:households], household_block)
+    push!(section_blocks[:prices], price_block)
+    push!(section_blocks[:external], bop_block, foreign_block)
+    push!(section_blocks[:trade], arm_block, trans_block)
+    push!(section_blocks[:markets], market_block)
+    push!(section_blocks[:objective], util_block)
+    push!(section_blocks[:init], init_block)
+    push!(section_blocks[:closure], numeraire_block)
+    sections = [JCGECore.section(sym, section_blocks[sym]) for sym in allowed_sections]
+    return JCGECore.build_spec(
+        "LargeCountryCGE",
+        sets,
+        mappings,
+        sections;
+        closure=closure,
+        scenario=scenario,
+        required_sections=allowed_sections,
+        allowed_sections=allowed_sections,
+        required_nonempty=[:production, :households, :markets],
+    )
 end
 
 baseline() = model()

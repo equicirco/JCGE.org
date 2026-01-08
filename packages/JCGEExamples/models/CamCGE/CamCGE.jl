@@ -3,136 +3,67 @@ module CamCGE
 using JCGEBlocks
 using JCGECore
 using JCGEKernel
+using JCGECalibrate
 using Ipopt
 
 export model, baseline, scenario, solve
 
-const SECTOR_LABELS = [
-    "ag-subsist",
-    "ag-exp+ind",
-    "sylvicult",
-    "ind-alim",
-    "biens-cons",
-    "biens-int",
-    "cim-int",
-    "biens-cap",
-    "construct",
-    "services",
-    "publiques",
-]
-
-const LABOR_LABELS = [
-    "rural",
-    "urban-unsk",
-    "urban-skil",
-]
-
-function _vecdict(keys::Vector{Symbol}, values::Vector{Float64})
-    return Dict(keys[i] => values[i] for i in eachindex(keys))
+function _vecdict(vec::JCGECalibrate.LabeledVector{Float64})
+    return Dict(vec.labels[i] => vec.data[i] for i in eachindex(vec.labels))
 end
 
-function _matdict(rows::Vector{Symbol}, cols::Vector{Symbol}, data::Matrix{Float64})
+function _matdict(mat::JCGECalibrate.LabeledMatrix{Float64})
     out = Dict{Tuple{Symbol,Symbol},Float64}()
-    for (i, r) in enumerate(rows), (j, c) in enumerate(cols)
-        out[(r, c)] = data[i, j]
+    for r in mat.row_labels, c in mat.col_labels
+        out[(r, c)] = mat[r, c]
     end
     return out
 end
 
-function _build_data()
-    sectors = Symbol.(SECTOR_LABELS)
-    labor = Symbol.(LABOR_LABELS)
+function _load_data()
+    datadir = joinpath(@__DIR__, "data")
+    io_mat = JCGECalibrate.load_labeled_matrix(joinpath(datadir, "io.csv"))
+    imat_mat = JCGECalibrate.load_labeled_matrix(joinpath(datadir, "imat.csv"))
+    wdist_mat = JCGECalibrate.load_labeled_matrix(joinpath(datadir, "wdist.csv"))
+    xle_mat = JCGECalibrate.load_labeled_matrix(joinpath(datadir, "xle.csv"))
 
-    io_data = [
-        0.03046 0.0 0.0 0.30266 0.00206 0.0 0.0 0.0 0.0 0.0412 0.0;
-        0.0 0.01518 0.0 0.02043 0.01123 0.00669 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.00243 0.0 0.02106 0.0 0.0 0.0 0.0 0.0;
-        0.00341 0.00629 0.0 0.03241 0.01234 0.00503 0.0 0.0 0.0 0.00092 0.01532;
-        0.0 0.0 0.0 0.00105 0.05385 0.00435 0.0 0.0 0.0 0.00103 0.00338;
-        0.00676 0.12385 0.02095 0.03794 0.08309 0.23461 0.18289 0.01567 0.14665 0.00929 0.08466;
-        0.00002 0.00025 0.00017 0.11238 0.05095 0.05593 0.27608 0.11722 0.18643 0.00018 0.0;
-        0.00041 0.00971 0.02427 0.00931 0.01229 0.05259 0.02053 0.05013 0.02622 0.00389 0.0;
-        0.00472 0.00113 0.00318 0.10456 0.01831 0.05302 0.00172 0.00031 0.01457 0.00385 0.00394;
-        0.00375 0.30649 0.26666 0.101 0.26072 0.23006 0.11793 0.09922 0.13692 0.13728 0.24145;
-        0.00022 0.00293 0.00327 0.00536 0.00539 0.00957 0.00486 0.00081 0.00447 0.00219 0.0;
-    ]
+    sectors = io_mat.row_labels
+    labor = wdist_mat.col_labels
 
-    imat_data = [
-        0.23637 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.5953 0.60608 0.63876 0.60608 0.78723 0.63876 0.63876 0.60608 0.71728 0.1761 0.1761;
-        0.16833 0.39392 0.36124 0.39392 0.21277 0.36124 0.36124 0.39392 0.28272 0.8239 0.8239;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-        0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
-    ]
+    io = _matdict(io_mat)
+    imat = _matdict(imat_mat)
+    wdist = _matdict(wdist_mat)
+    xle = _matdict(xle_mat)
 
-    wdist_data = [
-        1.0189 0.71491 0.0;
-        0.49556 0.34774 0.29222;
-        3.2628 2.289 1.9232;
-        1.4571 1.0223 0.85902;
-        1.1335 0.79531 0.66829;
-        3.1074 2.1806 1.8323;
-        6.3224 4.4364 3.7277;
-        2.5035 1.7552 1.4758;
-        2.9204 2.0492 1.722;
-        1.4039 0.98502 0.82776;
-        0.0 1.3263 1.1146;
-    ]
+    m0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "m0.csv")))
+    e0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "e0.csv")))
+    xd0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "xd0.csv")))
+    k0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "k0.csv")))
+    id0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "id0.csv")))
+    dst0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "dst0.csv")))
 
-    xle_data = [
-        1654.43 162.89 0.0;
-        399.93 45.508 5.057;
-        7.662 1.789 0.597;
-        12.989 9.434 2.358;
-        28.344 37.462 12.488;
-        18.331 16.553 8.3;
-        1.458 1.317 0.66;
-        3.112 2.82 1.208;
-        22.584 28.462 7.116;
-        121.2 125.8 61.96;
-        0.0 83.029 32.771;
-    ]
+    depr = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "depr.csv")))
+    rhoc = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "rhoc.csv")))
+    rhot = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "rhot.csv")))
+    eta = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "eta.csv")))
+    pd0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "pd0.csv")))
+    tm0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "tm0.csv")))
+    itax = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "itax.csv")))
+    cles = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "cles.csv")))
+    gles = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "gles.csv")))
+    kio = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "kio.csv")))
+    dstr = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "dstr.csv")))
 
-    io = _matdict(sectors, sectors, io_data)
-    imat = _matdict(sectors, sectors, imat_data)
-    wdist = _matdict(sectors, labor, wdist_data)
-    xle = _matdict(sectors, labor, xle_data)
+    wa0 = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "wa0.csv")))
+    te = _vecdict(JCGECalibrate.load_labeled_vector(joinpath(datadir, "te.csv")))
 
-    m0 = _vecdict(sectors, [2.461, 8.039, 0.023, 17.961, 37.062, 138.57, 49.616, 134.72, 0.0, 74.439, 0.0])
-    e0 = _vecdict(sectors, [4.594, 125.07, 22.337, 23.451, 5.864, 101.33, 10.501, 3.838, 0.0, 81.626, 0.0])
-    xd0 = _vecdict(sectors, [330.48, 131.45, 29.503, 72.024, 118.43, 284.38, 34.169, 10.298, 174.12, 615.79, 163.98])
-    k0 = _vecdict(sectors, [495.73, 170.89, 73.76, 140.0, 236.87, 853.13, 102.51, 20.6, 435.29, 769.73, 180.36])
-    id0 = _vecdict(sectors, [6.71, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 113.36, 138.13, 0.0, 0.0])
-    dst0 = _vecdict(sectors, [4.033, 3.509, 1.025, 3.19, 7.101, 3.494, 0.0, 0.433, 0.0, 0.0, 0.0])
-
-    depr = _vecdict(sectors, [0.0246, 0.0472, 0.0244, 0.0144, 0.0212, 0.0335, 0.0335, 0.0111, 0.0232, 0.0637, 0.0637])
-    rhoc_raw = _vecdict(sectors, [1.5, 0.9, 0.4, 1.25, 1.25, 0.5, 0.75, 0.4, 0.4, 0.4, 0.4])
-    rhot_raw = _vecdict(sectors, [1.5, 0.9, 0.4, 1.25, 1.25, 0.5, 0.75, 0.4, 0.4, 0.4, 0.4])
-    eta = _vecdict(sectors, [1.0, 1.0, 1.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0])
-    pd0 = _vecdict(sectors, fill(1.0, length(sectors)))
-    tm0 = _vecdict(sectors, [0.2205, 0.233, 0.278, 0.3534, 0.3826, 0.1768, 0.2633, 0.268, 0.0, 0.0, 0.0])
-    itax = _vecdict(sectors, [0.002, 0.191, 0.057, 0.038, 0.096, 0.026, 0.014, 0.029, 0.034, 0.076, 0.0])
-    cles = _vecdict(sectors, [0.2744, 0.00445, 0.0, 0.05599, 0.14099, 0.17738, 0.0, 0.0, 0.004, 0.31921, 0.02358])
-    gles = _vecdict(sectors, [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
-    kio = _vecdict(sectors, [0.11, 0.09, 0.06, 0.01, 0.04, 0.14, 0.02, 0.01, 0.08, 0.34, 0.1])
-    dstr = _vecdict(sectors, [0.012203, 0.026694, 0.034742, 0.044291, 0.059958, 0.012287, 0.0, 0.042047, 0.0, 0.0, 0.0])
-
-    wa0 = _vecdict(labor, [0.11, 0.15678, 1.8657])
-    er = 0.21
-    gr0 = 179.0
-    gdtot0 = 135.03
-    cdtot0 = 947.98
-    fsav0 = 36.841
-
-    rhoc = Dict(i => (1.0 / rhoc_raw[i]) - 1.0 for i in sectors)
-    rhot = Dict(i => (1.0 / rhot_raw[i]) + 1.0 for i in sectors)
-    te = Dict(i => 0.0 for i in sectors)
+    scalars = JCGECalibrate.load_labeled_vector(joinpath(datadir, "scalars.csv"))
+    er = scalars[:er]
+    gr0 = scalars[:gr0]
+    gdtot0 = scalars[:gdtot0]
+    cdtot0 = scalars[:cdtot0]
+    fsav0 = scalars[:fsav0]
+    mps0 = scalars[:mps0]
 
     xllb = Dict{Tuple{Symbol,Symbol},Float64}()
     for i in sectors, lc in labor
@@ -252,7 +183,7 @@ function _build_data()
         gdtot0=gdtot0,
         cdtot0=cdtot0,
         fsav0=fsav0,
-        mps0=0.09305,
+        mps0=mps0,
     )
 end
 
@@ -262,7 +193,7 @@ end
 Return a RunSpec for the Cameroon CGE model port.
 """
 function model()
-    data = _build_data()
+    data = _load_data()
     sectors = data.sectors
     labor = data.labor
 
@@ -402,34 +333,32 @@ function model()
 
     init_block = JCGEBlocks.initial_values(:init, (start=start_vals, lower=lower_vals, fixed=fixed_vals))
 
-    blocks = Any[
-        trade_block,
-        absorption_block,
-        activity_price_block,
-        capital_price_block,
-        production_block,
-        labor_block,
-        cet_block,
-        export_block,
-        armington_block,
-        nontraded_block,
-        inventory_block,
-        household_block,
-        government_demand_block,
-        government_finance_block,
-        gdp_block,
-        savings_block,
-        market_block,
-        objective_block,
-        init_block,
-    ]
-
-    ms = JCGECore.ModelSpec(blocks, sets, mappings)
     closure = JCGECore.ClosureSpec(:pwm)
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
-    spec = JCGECore.RunSpec("CamCGE", ms, closure, scenario)
-    JCGECore.validate(spec)
-    return spec
+    allowed_sections = JCGECore.allowed_sections()
+    section_blocks = Dict(sym => Any[] for sym in allowed_sections)
+    push!(section_blocks[:production], production_block)
+    push!(section_blocks[:factors], labor_block)
+    push!(section_blocks[:government], government_demand_block, government_finance_block)
+    push!(section_blocks[:savings], savings_block)
+    push!(section_blocks[:households], household_block)
+    push!(section_blocks[:prices], trade_block, absorption_block, activity_price_block, capital_price_block)
+    push!(section_blocks[:trade], cet_block, export_block, armington_block, nontraded_block)
+    push!(section_blocks[:markets], inventory_block, gdp_block, market_block)
+    push!(section_blocks[:objective], objective_block)
+    push!(section_blocks[:init], init_block)
+    sections = [JCGECore.section(sym, section_blocks[sym]) for sym in allowed_sections]
+    return JCGECore.build_spec(
+        "CamCGE",
+        sets,
+        mappings,
+        sections;
+        closure=closure,
+        scenario=scenario,
+        required_sections=allowed_sections,
+        allowed_sections=allowed_sections,
+        required_nonempty=[:production, :households, :markets],
+    )
 end
 
 baseline() = model()

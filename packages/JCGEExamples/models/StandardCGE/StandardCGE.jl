@@ -149,28 +149,35 @@ function model(; sam_table::Union{Nothing,JCGECalibrate.SAMTable} = nothing,
 
     numeraire_block = JCGEBlocks.numeraire(:numeraire, :factor, sam_table.numeraire_factor_label, 1.0)
 
-    blocks = Any[
-        prod_block,
-        factor_market_block,
-        gov_block,
-        saving_block,
-        household_block,
-        invest_block,
-        price_block,
-        bop_block,
-        arm_block,
-        trans_block,
-        market_block,
-        util_block,
-        init_block,
-        numeraire_block,
-    ]
-    ms = JCGECore.ModelSpec(blocks, sets, mappings)
     closure = JCGECore.ClosureSpec(sam_table.numeraire_factor_label)
     scenario = JCGECore.ScenarioSpec(:baseline, Dict{Symbol,Any}())
-    spec = JCGECore.RunSpec("StandardCGE", ms, closure, scenario)
-    JCGECore.validate(spec)
-    return spec
+    sections = [
+        JCGECore.section(:production, Any[prod_block]),
+        JCGECore.section(:factors, Any[factor_market_block]),
+        JCGECore.section(:government, Any[gov_block]),
+        JCGECore.section(:savings, Any[saving_block, invest_block]),
+        JCGECore.section(:households, Any[household_block]),
+        JCGECore.section(:prices, Any[price_block]),
+        JCGECore.section(:external, Any[bop_block]),
+        JCGECore.section(:trade, Any[arm_block, trans_block]),
+        JCGECore.section(:markets, Any[market_block]),
+        JCGECore.section(:objective, Any[util_block]),
+        JCGECore.section(:init, Any[init_block]),
+        JCGECore.section(:closure, Any[numeraire_block]),
+    ]
+    allowed_sections = JCGECore.allowed_sections()
+    required_nonempty = [:production, :households, :markets]
+    return JCGECore.build_spec(
+        "StandardCGE",
+        sets,
+        mappings,
+        sections;
+        closure=closure,
+        scenario=scenario,
+        required_sections=allowed_sections,
+        allowed_sections=allowed_sections,
+        required_nonempty=required_nonempty,
+    )
 end
 
 baseline() = model()
