@@ -1415,6 +1415,9 @@ function _render_expr(expr::EquationExpr; format::Symbol)
     elseif expr isa EParam
         return _render_symbol(expr.name, expr.idxs; format=format)
     elseif expr isa EConst
+        if expr.value isa AbstractFloat && isfinite(expr.value) && isinteger(expr.value)
+            return string(Int(expr.value))
+        end
         return string(expr.value)
     elseif expr isa ERaw
         return expr.text
@@ -1455,6 +1458,14 @@ function _render_expr(expr::EquationExpr; format::Symbol)
     elseif expr isa EDiv
         num = _render_expr(expr.numerator; format=format)
         den = _render_expr(expr.denominator; format=format)
+        if format == :latex
+            if expr.numerator isa EAdd || expr.numerator isa ENeg
+                num = string("(", num, ")")
+            end
+            if expr.denominator isa EAdd || expr.denominator isa ENeg
+                den = string("(", den, ")")
+            end
+        end
         if format == :latex
             return string("\\frac{", num, "}{", den, "}")
         end
