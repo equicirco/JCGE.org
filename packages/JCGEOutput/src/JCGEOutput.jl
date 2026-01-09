@@ -1511,6 +1511,7 @@ end
 
 function _simplify_exponent_latex(text::AbstractString)
     simplified = replace(text, r"\\mathrm\\{([^}]*)\\}" => s"\1")
+    simplified = replace(simplified, "\\_" => "_")
     return simplified
 end
 
