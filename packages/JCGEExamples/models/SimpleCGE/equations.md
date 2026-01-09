@@ -2,7 +2,7 @@
 `prod.eqZ[BRD]`
 
 $$
-\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,j}}^{\mathrm{beta}_{h,j}}
+\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,j}}^{beta_{h,j}}
 $$
 
 Domain h in { CAP, LAB }
@@ -22,7 +22,7 @@ $$
 `prod.eqZ[MLK]`
 
 $$
-\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,j}}^{\mathrm{beta}_{h,j}}
+\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,j}}^{beta_{h,j}}
 $$
 
 Domain h in { CAP, LAB }

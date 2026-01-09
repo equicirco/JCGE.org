@@ -2,7 +2,7 @@
 `production.activity[agricult]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{labor1,labor2,labor3}(alphl_{lc,i})}
 $$
 
 Domain lc in { labor1, labor2 }
@@ -23,7 +23,7 @@ $$
 `production.activity[industry]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{labor1,labor2,labor3}(alphl_{lc,i})}
 $$
 
 Domain lc in { labor2 }
@@ -38,7 +38,7 @@ $$
 `production.activity[services]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{labor1,labor2,labor3}(alphl_{lc,i})}
 $$
 
 Domain lc in { labor2, labor3 }
@@ -435,73 +435,73 @@ Domain i in { agricult, industry, services }
 `cet.cet[agricult]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[agricult]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[industry]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[industry]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[services]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[services]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `armington.armington[agricult]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[agricult]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[industry]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[industry]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[services]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[services]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `inventory.dsteq[agricult]`
@@ -543,7 +543,7 @@ $$
 `objective.objective`
 
 $$
-omega = \prod_{i \in \mathcal{D}_{i}} {\mathrm{cd}_{i}}^{\mathrm{alpha}_{i}}
+omega = \prod_{i \in \mathcal{D}_{i}} {\mathrm{cd}_{i}}^{alpha_{i}}
 $$
 
 Domain i in { agricult, industry, services }

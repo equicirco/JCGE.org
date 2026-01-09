@@ -2,7 +2,7 @@
 `production.activity[ag-subsist]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk }
@@ -23,7 +23,7 @@ $$
 `production.activity[ag-exp+ind]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -50,7 +50,7 @@ $$
 `production.activity[sylvicult]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -77,7 +77,7 @@ $$
 `production.activity[ind-alim]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -104,7 +104,7 @@ $$
 `production.activity[biens-cons]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -131,7 +131,7 @@ $$
 `production.activity[biens-int]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -158,7 +158,7 @@ $$
 `production.activity[cim-int]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -185,7 +185,7 @@ $$
 `production.activity[biens-cap]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -212,7 +212,7 @@ $$
 `production.activity[construct]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -239,7 +239,7 @@ $$
 `production.activity[services]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { rural, urban-unsk, urban-skil }
@@ -266,7 +266,7 @@ $$
 `production.activity[publiques]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{\mathrm{alphl}_{lc,i}} \cdot {\mathrm{k}_{i}}^{1 - \sum_{lc \in \mathcal{D}_{lc}} \mathrm{alphl}_{lc,i}}
+\mathrm{xd}_{i} = \mathrm{ad}_{i} \cdot \prod_{lc \in \mathcal{D}_{lc}} {\mathrm{l}_{i,lc}}^{alphl_{lc,i}} \cdot {\mathrm{k}_{i}}^{1-sum_lc∈{rural,urban-unsk,urban-skil}(alphl_{lc,i})}
 $$
 
 Domain lc in { urban-unsk, urban-skil }
@@ -1190,271 +1190,271 @@ Domain i in { ag-subsist, ag-exp+ind, sylvicult, ind-alim, biens-cons, biens-int
 `cet.cet[ag-subsist]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[ag-subsist]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[ag-exp+ind]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[ag-exp+ind]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[sylvicult]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[sylvicult]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[ind-alim]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[ind-alim]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[biens-cons]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[biens-cons]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[biens-int]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[biens-int]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[cim-int]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[cim-int]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[biens-cap]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[biens-cap]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `cet.cet[services]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{rhot_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{rhot_{i}})^{1/(rhot_{i})}
 $$
 
 `cet.esupply[services]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(rhot_{i}-1)}
 $$
 
 `export.edemand[ag-subsist]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[ag-exp+ind]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[sylvicult]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[ind-alim]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[biens-cons]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[biens-int]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[cim-int]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[biens-cap]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `export.edemand[services]`
 
 $$
-\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{\mathrm{eta}_{i}}
+\mathrm{e}_{i} / \mathrm{e0}_{i} = (\mathrm{pwe0}_{i} / \mathrm{pwe}_{i})^{eta_{i}}
 $$
 
 `armington.armington[ag-subsist]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[ag-subsist]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[ag-exp+ind]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[ag-exp+ind]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[sylvicult]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[sylvicult]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[ind-alim]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[ind-alim]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[biens-cons]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[biens-cons]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[biens-int]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[biens-int]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[cim-int]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[cim-int]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[biens-cap]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[biens-cap]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `armington.armington[services]`
 
 $$
-\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-\mathrm{rhoc}_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-\mathrm{rhoc}_{i}})^{(-1) / \mathrm{rhoc}_{i}}
+\mathrm{x}_{i} = \mathrm{ac}_{i} \cdot (\mathrm{delta}_{i} \cdot {\mathrm{m}_{i}}^{-rhoc_{i}} + (1 - \mathrm{delta}_{i}) \cdot {\mathrm{xxd}_{i}}^{-rhoc_{i}})^{-1/rhoc_{i}}
 $$
 
 `armington.costmin[services]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1+rhoc_{i})}
 $$
 
 `nontraded.xxdsn[construct]`
