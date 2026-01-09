@@ -1264,11 +1264,11 @@ function _render_equation_line(eq; format::Symbol, show_defs::Bool)
     if format == :markdown
         if is_math
             if isempty(label)
-                return "\$\$\n$(info)\n\$\$"
+                return "\$\$\n$(info)\n\$\$\n"
             end
-            return "`$(label)`\n\n\$\$\n$(info)\n\$\$"
+            return "`$(label)`\n\n\$\$\n$(info)\n\$\$\n"
         end
-        return isempty(label) ? "$(info)" : "`$(label)` $(info)"
+        return isempty(label) ? "$(info)\n" : "`$(label)` $(info)\n"
     elseif format == :latex
         if isempty(label)
             return "% $(info)"
@@ -1403,14 +1403,14 @@ function _render_expr(expr::EquationExpr; format::Symbol)
         return string("-", inner)
     elseif expr isa ESum
         inner = _render_expr(expr.expr; format=format)
-        domain = join(string.(expr.domain), ", ")
+        domain = join(map(idx -> _render_index(idx; format=format), expr.domain), ", ")
         if format == :latex
             return string("\\sum_{", expr.index, " \\in \\{", domain, "\\}} ", inner)
         end
         return string("sum_", expr.index, "∈{", domain, "}(", inner, ")")
     elseif expr isa EProd
         inner = _render_expr(expr.expr; format=format)
-        domain = join(string.(expr.domain), ", ")
+        domain = join(map(idx -> _render_index(idx; format=format), expr.domain), ", ")
         if format == :latex
             return string("\\prod_{", expr.index, " \\in \\{", domain, "\\}} ", inner)
         end
@@ -1452,11 +1452,15 @@ function _render_index(idx; format::Symbol)
         return format == :latex ? _latex_escape(text) : text
     end
     text = string(idx)
-    return format == :latex ? _latex_escape(text) : text
+    return format == :latex ? string("\\mathrm{", _latex_escape(text), "}") : text
 end
 
 function _latex_escape(text::AbstractString)
-    replace(text, "_" => "\\_")
+    escaped = replace(text, "\\" => "\\textbackslash{}")
+    escaped = replace(escaped, "{" => "\\{", "}" => "\\}")
+    escaped = replace(escaped, "_" => "\\_")
+    escaped = replace(escaped, "#" => "\\#", "%" => "\\%", "&" => "\\&", "\$" => "\\\$", "^" => "\\^{}", "~" => "\\~{}")
+    return escaped
 end
 
 function _format_bullet(format::Symbol, text::String)
