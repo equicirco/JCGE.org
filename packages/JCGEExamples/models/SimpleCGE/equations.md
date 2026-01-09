@@ -10,13 +10,13 @@ Domain h in { CAP, LAB }
 `prod.eqF[CAP,BRD]`
 
 $$
-\mathrm{F}_{h,j} = \frac{\mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j}}{\mathrm{pf}_{h}}
+\mathrm{F}_{h,j} = \mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j} / \mathrm{pf}_{h}
 $$
 
 `prod.eqF[LAB,BRD]`
 
 $$
-\mathrm{F}_{h,j} = \frac{\mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j}}{\mathrm{pf}_{h}}
+\mathrm{F}_{h,j} = \mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j} / \mathrm{pf}_{h}
 $$
 
 `prod.eqZ[MLK]`
@@ -30,13 +30,13 @@ Domain h in { CAP, LAB }
 `prod.eqF[CAP,MLK]`
 
 $$
-\mathrm{F}_{h,j} = \frac{\mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j}}{\mathrm{pf}_{h}}
+\mathrm{F}_{h,j} = \mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j} / \mathrm{pf}_{h}
 $$
 
 `prod.eqF[LAB,MLK]`
 
 $$
-\mathrm{F}_{h,j} = \frac{\mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j}}{\mathrm{pf}_{h}}
+\mathrm{F}_{h,j} = \mathrm{beta}_{h,j} \cdot \mathrm{pz}_{j} \cdot \mathrm{Z}_{j} / \mathrm{pf}_{h}
 $$
 
 `factor_market.eqF[CAP]`
@@ -58,7 +58,7 @@ Domain j in { BRD, MLK }
 `household.eqX[BRD]`
 
 $$
-\mathrm{X}_{i} = \frac{\mathrm{alpha}_{i} \cdot \sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h}}{\mathrm{px}_{i}}
+\mathrm{X}_{i} = \mathrm{alpha}_{i} \cdot \sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} / \mathrm{px}_{i}
 $$
 
 Domain h in { CAP, LAB }
@@ -66,7 +66,7 @@ Domain h in { CAP, LAB }
 `household.eqX[MLK]`
 
 $$
-\mathrm{X}_{i} = \frac{\mathrm{alpha}_{i} \cdot \sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h}}{\mathrm{px}_{i}}
+\mathrm{X}_{i} = \mathrm{alpha}_{i} \cdot \sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} / \mathrm{px}_{i}
 $$
 
 Domain h in { CAP, LAB }

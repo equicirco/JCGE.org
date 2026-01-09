@@ -1465,9 +1465,7 @@ function _render_expr(expr::EquationExpr; format::Symbol)
             if expr.denominator isa EAdd || expr.denominator isa ENeg
                 den = string("(", den, ")")
             end
-        end
-        if format == :latex
-            return string("\\frac{", num, "}{", den, "}")
+            return string(num, " / ", den)
         end
         return string(num, " / ", den)
     elseif expr isa ENeg
