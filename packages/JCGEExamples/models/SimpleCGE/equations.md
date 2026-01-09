@@ -2,8 +2,10 @@
 `prod.eqZ[BRD]`
 
 $$
-\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,j}}^{\mathrm{beta}_{h,j}}
+\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,j}}^{\mathrm{beta}_{h,j}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,BRD]`
 
@@ -20,8 +22,10 @@ $$
 `prod.eqZ[MLK]`
 
 $$
-\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,j}}^{\mathrm{beta}_{h,j}}
+\mathrm{Z}_{j} = \mathrm{b}_{j} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,j}}^{\mathrm{beta}_{h,j}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,MLK]`
 
@@ -38,26 +42,34 @@ $$
 `factor_market.eqF[CAP]`
 
 $$
-\sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{F}_{h,j} = \mathrm{FF}_{h}
+\sum_{j \in \mathcal{D}_{j}} \mathrm{F}_{h,j} = \mathrm{FF}_{h}
 $$
+
+Domain j in { BRD, MLK }
 
 `factor_market.eqF[LAB]`
 
 $$
-\sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{F}_{h,j} = \mathrm{FF}_{h}
+\sum_{j \in \mathcal{D}_{j}} \mathrm{F}_{h,j} = \mathrm{FF}_{h}
 $$
+
+Domain j in { BRD, MLK }
 
 `household.eqX[BRD]`
 
 $$
-\mathrm{X}_{i} = \frac{\mathrm{alpha}_{i} \cdot \sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \mathrm{pf}_{h} \cdot \mathrm{FF}_{h}}{\mathrm{px}_{i}}
+\mathrm{X}_{i} = \frac{\mathrm{alpha}_{i} \cdot \sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h}}{\mathrm{px}_{i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `household.eqX[MLK]`
 
 $$
-\mathrm{X}_{i} = \frac{\mathrm{alpha}_{i} \cdot \sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \mathrm{pf}_{h} \cdot \mathrm{FF}_{h}}{\mathrm{px}_{i}}
+\mathrm{X}_{i} = \frac{\mathrm{alpha}_{i} \cdot \sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h}}{\mathrm{px}_{i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `price_link.eqP[BRD]`
 

@@ -2,8 +2,10 @@
 `prod.eqpy[BRD]`
 
 $$
-\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
+\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,BRD]`
 
@@ -38,14 +40,18 @@ $$
 `prod.eqpzs[BRD]`
 
 $$
-\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j} + 0.0
+\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j} + 0.0
 $$
+
+Domain j in { BRD, MLK }
 
 `prod.eqpy[MLK]`
 
 $$
-\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
+\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,MLK]`
 
@@ -80,26 +86,34 @@ $$
 `prod.eqpzs[MLK]`
 
 $$
-\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j} + 0.0
+\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j} + 0.0
 $$
+
+Domain j in { BRD, MLK }
 
 `factor_market.eqF[CAP]`
 
 $$
-\sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{F}_{h,j} = \mathrm{FF}_{h}
+\sum_{j \in \mathcal{D}_{j}} \mathrm{F}_{h,j} = \mathrm{FF}_{h}
 $$
+
+Domain j in { BRD, MLK }
 
 `factor_market.eqF[LAB]`
 
 $$
-\sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{F}_{h,j} = \mathrm{FF}_{h}
+\sum_{j \in \mathcal{D}_{j}} \mathrm{F}_{h,j} = \mathrm{FF}_{h}
 $$
+
+Domain j in { BRD, MLK }
 
 `government.eqTd`
 
 $$
-Td = tau\_d \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} + 0.0 + 0.0\right)
+Td = tau\_d \cdot \left(\sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} + 0.0 + 0.0\right)
 $$
+
+Domain h in { CAP, LAB }
 
 `government.eqTz[BRD]`
 
@@ -116,8 +130,11 @@ $$
 `government.eqXg[BRD]`
 
 $$
-\mathrm{Xg}_{i} = \frac{\mathrm{mu}_{i} \cdot \left(Td + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{Tz}_{j} + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{Tm}_{j} - Sg\right)}{\mathrm{pq}_{i}}
+\mathrm{Xg}_{i} = \frac{\mathrm{mu}_{i} \cdot \left(Td + \sum_{j \in \mathcal{D}_{j}} \mathrm{Tz}_{j} + \sum_{j \in \mathcal{D}_{j}} \mathrm{Tm}_{j} - Sg\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain j in { BRD, MLK }
+Domain j in { BRD, MLK }
 
 `government.eqTz[MLK]`
 
@@ -134,20 +151,28 @@ $$
 `government.eqXg[MLK]`
 
 $$
-\mathrm{Xg}_{i} = \frac{\mathrm{mu}_{i} \cdot \left(Td + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{Tz}_{j} + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{Tm}_{j} - Sg\right)}{\mathrm{pq}_{i}}
+\mathrm{Xg}_{i} = \frac{\mathrm{mu}_{i} \cdot \left(Td + \sum_{j \in \mathcal{D}_{j}} \mathrm{Tz}_{j} + \sum_{j \in \mathcal{D}_{j}} \mathrm{Tm}_{j} - Sg\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain j in { BRD, MLK }
+Domain j in { BRD, MLK }
 
 `government.eqSg`
 
 $$
-Sg = ssg \cdot \left(Td + \sum_{i \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{Tz}_{i} + \sum_{i \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{Tm}_{i}\right)
+Sg = ssg \cdot \left(Td + \sum_{i \in \mathcal{D}_{i}} \mathrm{Tz}_{i} + \sum_{i \in \mathcal{D}_{i}} \mathrm{Tm}_{i}\right)
 $$
+
+Domain i in { BRD, MLK }
+Domain i in { BRD, MLK }
 
 `private_saving.eqSp`
 
 $$
-Sp = ssp \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} + 0.0 + 0.0\right)
+Sp = ssp \cdot \left(\sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} + 0.0 + 0.0\right)
 $$
+
+Domain h in { CAP, LAB }
 
 `investment.eqXv[BRD]`
 
@@ -164,14 +189,18 @@ $$
 `household.eqXp[BRD]`
 
 $$
-\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} - Sp - Td + 0.0 + 0.0\right)}{\mathrm{pq}_{i}}
+\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} - Sp - Td + 0.0 + 0.0\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `household.eqXp[MLK]`
 
 $$
-\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} - Sp - Td + 0.0 + 0.0\right)}{\mathrm{pq}_{i}}
+\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \mathcal{D}_{h}} \mathrm{pf}_{h} \cdot \mathrm{FF}_{h} - Sp - Td + 0.0 + 0.0\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prices.eqpe[BRD]`
 
@@ -200,8 +229,11 @@ $$
 `bop.eqBOP`
 
 $$
-\sum_{i \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{pWe}_{i} \cdot \mathrm{E}_{i} + Sf = \sum_{i \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{pWm}_{i} \cdot \mathrm{M}_{i}
+\sum_{i \in \mathcal{D}_{i}} \mathrm{pWe}_{i} \cdot \mathrm{E}_{i} + Sf = \sum_{i \in \mathcal{D}_{i}} \mathrm{pWm}_{i} \cdot \mathrm{M}_{i}
 $$
+
+Domain i in { BRD, MLK }
+Domain i in { BRD, MLK }
 
 `foreign_trade.eqfe[BRD]`
 
@@ -302,14 +334,18 @@ $$
 `market.eqQ[BRD]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{X}_{i,j}
+\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{X}_{i,j}
 $$
+
+Domain j in { BRD, MLK }
 
 `market.eqQ[MLK]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \lbrace \text{BRD}, \text{MLK} \rbrace } \mathrm{X}_{i,j}
+\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{X}_{i,j}
 $$
+
+Domain j in { BRD, MLK }
 
 `utility.objective` maximize Cobb-Douglas utility over Xp
 

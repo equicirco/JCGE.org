@@ -1257,6 +1257,10 @@ end
 
 function _render_equation_line(eq; format::Symbol, show_defs::Bool)
     info, is_math = _equation_info(eq; format=format)
+    domains = Pair{String,Vector{String}}[]
+    if format == :markdown
+        domains = _extract_domains(eq)
+    end
     label = ""
     if show_defs
         label = _equation_label(eq)
@@ -1264,9 +1268,9 @@ function _render_equation_line(eq; format::Symbol, show_defs::Bool)
     if format == :markdown
         if is_math
             if isempty(label)
-                return "\$\$\n$(info)\n\$\$\n"
+                return string("\$\$\n", info, "\n\$\$\n", _render_domains(domains))
             end
-            return "`$(label)`\n\n\$\$\n$(info)\n\$\$\n"
+            return string("`", label, "`\n\n\$\$\n", info, "\n\$\$\n", _render_domains(domains))
         end
         return isempty(label) ? "$(info)\n" : "`$(label)` $(info)\n"
     elseif format == :latex
@@ -1282,6 +1286,63 @@ function _render_equation_line(eq; format::Symbol, show_defs::Bool)
             return "* $(label) $(info)"
         end
     end
+end
+
+function _extract_domains(eq)
+    payload = eq.payload
+    if payload isa NamedTuple
+        expr = get(payload, :expr, nothing)
+        if expr isa EquationExpr
+            return _collect_domains(expr)
+        end
+    end
+    return Pair{String,Vector{String}}[]
+end
+
+function _collect_domains(expr::EquationExpr)
+    domains = Pair{String,Vector{String}}[]
+    _collect_domains!(domains, expr)
+    return domains
+end
+
+function _collect_domains!(domains::Vector{Pair{String,Vector{String}}}, expr::EquationExpr)
+    if expr isa ESum || expr isa EProd
+        idx = string(expr.index)
+        domain = map(x -> string(x), expr.domain)
+        push!(domains, idx => domain)
+        _collect_domains!(domains, expr.expr)
+    elseif expr isa EAdd
+        for term in expr.terms
+            _collect_domains!(domains, term)
+        end
+    elseif expr isa EMul
+        for factor in expr.factors
+            _collect_domains!(domains, factor)
+        end
+    elseif expr isa EPow
+        _collect_domains!(domains, expr.base)
+        _collect_domains!(domains, expr.exponent)
+    elseif expr isa EDiv
+        _collect_domains!(domains, expr.numerator)
+        _collect_domains!(domains, expr.denominator)
+    elseif expr isa ENeg
+        _collect_domains!(domains, expr.expr)
+    elseif expr isa EEq
+        _collect_domains!(domains, expr.lhs)
+        _collect_domains!(domains, expr.rhs)
+    end
+    return domains
+end
+
+function _render_domains(domains::Vector{Pair{String,Vector{String}}})
+    if isempty(domains)
+        return ""
+    end
+    lines = String[]
+    for (idx, domain) in domains
+        push!(lines, "Domain $(idx) in { $(join(domain, ", ")) }\n")
+    end
+    return "\n" * join(lines, "")
 end
 
 function _equation_info(eq; format::Symbol)
@@ -1405,11 +1466,7 @@ function _render_expr(expr::EquationExpr; format::Symbol)
         inner = _render_expr(expr.expr; format=format)
         if format == :latex
             idx = _latex_escape(string(expr.index))
-            domain_items = map(expr.domain) do item
-                return string("\\text{", _latex_escape(string(item)), "}")
-            end
-            domain = join(domain_items, ", ")
-            return string("\\sum_{", idx, " \\in \\lbrace ", domain, " \\rbrace } ", inner)
+            return string("\\sum_{", idx, " \\in \\mathcal{D}_{", idx, "}} ", inner)
         end
         domain = join(map(idx -> _latex_escape(string(idx)), expr.domain), ", ")
         return string("sum_", expr.index, "∈{", domain, "}(", inner, ")")
@@ -1417,11 +1474,7 @@ function _render_expr(expr::EquationExpr; format::Symbol)
         inner = _render_expr(expr.expr; format=format)
         if format == :latex
             idx = _latex_escape(string(expr.index))
-            domain_items = map(expr.domain) do item
-                return string("\\text{", _latex_escape(string(item)), "}")
-            end
-            domain = join(domain_items, ", ")
-            return string("\\prod_{", idx, " \\in \\lbrace ", domain, " \\rbrace } ", inner)
+            return string("\\prod_{", idx, " \\in \\mathcal{D}_{", idx, "}} ", inner)
         end
         domain = join(map(idx -> _latex_escape(string(idx)), expr.domain), ", ")
         return string("prod_", expr.index, "∈{", domain, "}(", inner, ")")

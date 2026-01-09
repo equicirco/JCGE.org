@@ -2,8 +2,10 @@
 `prod.eqpy[AGR]`
 
 $$
-\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
+\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,AGR]`
 
@@ -50,14 +52,18 @@ $$
 `prod.eqpzs[AGR]`
 
 $$
-\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
+\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `prod.eqpy[LMN]`
 
 $$
-\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
+\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,LMN]`
 
@@ -104,14 +110,18 @@ $$
 `prod.eqpzs[LMN]`
 
 $$
-\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
+\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `prod.eqpy[HMN]`
 
 $$
-\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
+\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,HMN]`
 
@@ -158,14 +168,18 @@ $$
 `prod.eqpzs[HMN]`
 
 $$
-\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
+\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `prod.eqpy[SRV]`
 
 $$
-\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
+\mathrm{Y}_{i} = \mathrm{b}_{i} \cdot \prod_{h \in \mathcal{D}_{h}} {\mathrm{F}_{h,i}}^{\mathrm{beta}_{h,i}}
 $$
+
+Domain h in { CAP, LAB }
 
 `prod.eqF[CAP,SRV]`
 
@@ -212,14 +226,18 @@ $$
 `prod.eqpzs[SRV]`
 
 $$
-\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
+\mathrm{pz}_{i} = \mathrm{ay}_{i} \cdot \mathrm{py}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{ax}_{j,i} \cdot \mathrm{pq}_{j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `mobile_factor.eqpf1[LAB]`
 
 $$
-\sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{F}_{h,j} = \mathrm{FF}_{h}
+\sum_{j \in \mathcal{D}_{j}} \mathrm{F}_{h,j} = \mathrm{FF}_{h}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `mobile_factor.eqpf2[LAB,LMN]`
 
@@ -314,98 +332,137 @@ $$
 `government.eqTd`
 
 $$
-Td = \sum_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pq}_{i} \cdot \mathrm{Xg}_{i} - \sum_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{Tz}_{i} - \sum_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{Tm}_{i}
+Td = \sum_{i \in \mathcal{D}_{i}} \mathrm{pq}_{i} \cdot \mathrm{Xg}_{i} - \sum_{i \in \mathcal{D}_{i}} \mathrm{Tz}_{i} - \sum_{i \in \mathcal{D}_{i}} \mathrm{Tm}_{i}
 $$
+
+Domain i in { AGR, LMN, HMN, SRV }
+Domain i in { AGR, LMN, HMN, SRV }
+Domain i in { AGR, LMN, HMN, SRV }
 
 `private_saving.eqSp`
 
 $$
-Sp = ssp \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Td\right)
+Sp = ssp \cdot \left(\sum_{h \in \mathcal{D}_{h}} \sum_{j \in \mathcal{D}_{j}} \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Td\right)
 $$
+
+Domain h in { CAP, LAB }
+Domain j in { AGR, LMN, HMN, SRV }
 
 `investment.eqXv[AGR]`
 
 $$
-\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{II}_{j}}{\mathrm{pq}_{i}}
+\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \mathcal{D}_{j}} \mathrm{II}_{j}}{\mathrm{pq}_{i}}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `investment.eqXv[LMN]`
 
 $$
-\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{II}_{j}}{\mathrm{pq}_{i}}
+\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \mathcal{D}_{j}} \mathrm{II}_{j}}{\mathrm{pq}_{i}}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `investment.eqXv[HMN]`
 
 $$
-\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{II}_{j}}{\mathrm{pq}_{i}}
+\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \mathcal{D}_{j}} \mathrm{II}_{j}}{\mathrm{pq}_{i}}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `investment.eqXv[SRV]`
 
 $$
-\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{II}_{j}}{\mathrm{pq}_{i}}
+\mathrm{Xv}_{i} = \frac{\mathrm{lambda}_{i} \cdot pk \cdot \sum_{j \in \mathcal{D}_{j}} \mathrm{II}_{j}}{\mathrm{pq}_{i}}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `investment.eqIII`
 
 $$
-III = iota \cdot \prod_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } {\mathrm{Xv}_{i}}^{\mathrm{lambda}_{i}}
+III = iota \cdot \prod_{i \in \mathcal{D}_{i}} {\mathrm{Xv}_{i}}^{\mathrm{lambda}_{i}}
 $$
+
+Domain i in { AGR, LMN, HMN, SRV }
 
 `investment.eqpk`
 
 $$
-\sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{II}_{j} = III
+\sum_{j \in \mathcal{D}_{j}} \mathrm{II}_{j} = III
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `investment_alloc.eqII[AGR]`
 
 $$
-pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
+pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \mathcal{D}_{k}} {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
 $$
+
+Domain k in { AGR, LMN, HMN, SRV }
 
 `investment_alloc.eqII[LMN]`
 
 $$
-pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
+pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \mathcal{D}_{k}} {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
 $$
+
+Domain k in { AGR, LMN, HMN, SRV }
 
 `investment_alloc.eqII[HMN]`
 
 $$
-pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
+pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \mathcal{D}_{k}} {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
 $$
+
+Domain k in { AGR, LMN, HMN, SRV }
 
 `investment_alloc.eqII[SRV]`
 
 $$
-pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
+pk \cdot \mathrm{II}_{j} = \left(\frac{{\mathrm{pf}_{\text{CAP},j}}^{zeta} \cdot \mathrm{F}_{\text{CAP},j}}{\sum_{k \in \mathcal{D}_{k}} {\mathrm{pf}_{\text{CAP},k}}^{zeta} \cdot \mathrm{F}_{\text{CAP},k}}\right) \cdot \left(Sp + epsilon \cdot Sf\right)
 $$
+
+Domain k in { AGR, LMN, HMN, SRV }
 
 `household.eqXp[AGR]`
 
 $$
-\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
+\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \mathcal{D}_{h}} \sum_{j \in \mathcal{D}_{j}} \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain h in { CAP, LAB }
+Domain j in { AGR, LMN, HMN, SRV }
 
 `household.eqXp[LMN]`
 
 $$
-\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
+\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \mathcal{D}_{h}} \sum_{j \in \mathcal{D}_{j}} \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain h in { CAP, LAB }
+Domain j in { AGR, LMN, HMN, SRV }
 
 `household.eqXp[HMN]`
 
 $$
-\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
+\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \mathcal{D}_{h}} \sum_{j \in \mathcal{D}_{j}} \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain h in { CAP, LAB }
+Domain j in { AGR, LMN, HMN, SRV }
 
 `household.eqXp[SRV]`
 
 $$
-\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \lbrace \text{CAP}, \text{LAB} \rbrace } \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
+\mathrm{Xp}_{i} = \frac{\mathrm{alpha}_{i} \cdot \left(\sum_{h \in \mathcal{D}_{h}} \sum_{j \in \mathcal{D}_{j}} \mathrm{pf}_{h,j} \cdot \mathrm{F}_{h,j} - Sp - Td\right)}{\mathrm{pq}_{i}}
 $$
+
+Domain h in { CAP, LAB }
+Domain j in { AGR, LMN, HMN, SRV }
 
 `prices.eqpe[AGR]`
 
@@ -458,14 +515,19 @@ $$
 `price_level.eqPRICE`
 
 $$
-PRICE = \sum_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pq}_{i} \cdot \mathrm{w}_{i}
+PRICE = \sum_{i \in \mathcal{D}_{i}} \mathrm{pq}_{i} \cdot \mathrm{w}_{i}
 $$
+
+Domain i in { AGR, LMN, HMN, SRV }
 
 `bop.eqBOP`
 
 $$
-\sum_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pWe}_{i} \cdot \mathrm{E}_{i} + Sf = \sum_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{pWm}_{i} \cdot \mathrm{M}_{i}
+\sum_{i \in \mathcal{D}_{i}} \mathrm{pWe}_{i} \cdot \mathrm{E}_{i} + Sf = \sum_{i \in \mathcal{D}_{i}} \mathrm{pWm}_{i} \cdot \mathrm{M}_{i}
 $$
+
+Domain i in { AGR, LMN, HMN, SRV }
+Domain i in { AGR, LMN, HMN, SRV }
 
 `armington.eqQ[AGR]`
 
@@ -614,32 +676,42 @@ $$
 `market.eqQ[AGR]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{X}_{i,j}
+\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{X}_{i,j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `market.eqQ[LMN]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{X}_{i,j}
+\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{X}_{i,j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `market.eqQ[HMN]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{X}_{i,j}
+\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{X}_{i,j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `market.eqQ[SRV]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } \mathrm{X}_{i,j}
+\mathrm{Q}_{i} = \mathrm{Xp}_{i} + \mathrm{Xg}_{i} + \mathrm{Xv}_{i} + \sum_{j \in \mathcal{D}_{j}} \mathrm{X}_{i,j}
 $$
+
+Domain j in { AGR, LMN, HMN, SRV }
 
 `utility.eqCC`
 
 $$
-CC = a \cdot \prod_{i \in \lbrace \text{AGR}, \text{LMN}, \text{HMN}, \text{SRV} \rbrace } {\mathrm{Xp}_{i}}^{\mathrm{alpha}_{i}}
+CC = a \cdot \prod_{i \in \mathcal{D}_{i}} {\mathrm{Xp}_{i}}^{\mathrm{alpha}_{i}}
 $$
+
+Domain i in { AGR, LMN, HMN, SRV }
 
 `utility.objective` maximize CC
 
