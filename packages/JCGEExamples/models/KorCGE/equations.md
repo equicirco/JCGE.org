@@ -435,37 +435,37 @@ Domain i in { agricult, industry, services }
 `cet.cet[agricult]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/\mathrm{rhot}_{i}}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
 $$
 
 `cet.esupply[agricult]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(\mathrm{rhot}_{i} - 1)}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
 $$
 
 `cet.cet[industry]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/\mathrm{rhot}_{i}}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
 $$
 
 `cet.esupply[industry]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(\mathrm{rhot}_{i} - 1)}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
 $$
 
 `cet.cet[services]`
 
 $$
-\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/\mathrm{rhot}_{i}}
+\mathrm{xd}_{i} = \mathrm{at}_{i} \cdot (\mathrm{gamma}_{i} \cdot {\mathrm{e}_{i}}^{\mathrm{rhot}_{i}} + (1 - \mathrm{gamma}_{i}) \cdot {\mathrm{xxd}_{i}}^{\mathrm{rhot}_{i}})^{1/(\mathrm{rhot}_{i})}
 $$
 
 `cet.esupply[services]`
 
 $$
-\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/(\mathrm{rhot}_{i} - 1)}
+\mathrm{e}_{i} / \mathrm{xxd}_{i} = (\mathrm{pe}_{i} \cdot (1 - \mathrm{gamma}_{i}) / \mathrm{pd}_{i} \cdot \mathrm{gamma}_{i})^{1/((\mathrm{rhot}_{i} - 1))}
 $$
 
 `armington.armington[agricult]`
@@ -477,7 +477,7 @@ $$
 `armington.costmin[agricult]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1 + \mathrm{rhoc}_{i})}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
 $$
 
 `armington.armington[industry]`
@@ -489,7 +489,7 @@ $$
 `armington.costmin[industry]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1 + \mathrm{rhoc}_{i})}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
 $$
 
 `armington.armington[services]`
@@ -501,7 +501,7 @@ $$
 `armington.costmin[services]`
 
 $$
-\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/(1 + \mathrm{rhoc}_{i})}
+\mathrm{m}_{i} / \mathrm{xxd}_{i} = (\mathrm{pd}_{i} \cdot \mathrm{delta}_{i} / \mathrm{pm}_{i} \cdot (1 - \mathrm{delta}_{i}))^{1/((1 + \mathrm{rhoc}_{i}))}
 $$
 
 `inventory.dsteq[agricult]`

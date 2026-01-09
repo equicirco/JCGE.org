@@ -1452,6 +1452,7 @@ function _render_expr(expr::EquationExpr; format::Symbol)
         base = _wrap_if_needed(expr.base, _render_expr(expr.base; format=format); format=format)
         exp = _render_expr(expr.exponent; format=format)
         if format == :latex
+            exp = _simplify_exponent_latex(exp)
             if expr.base isa EVar || expr.base isa EParam
                 base = string("{", base, "}")
             end
@@ -1460,7 +1461,8 @@ function _render_expr(expr::EquationExpr; format::Symbol)
                 den = expr.exponent.denominator
                 if num isa EConst && num.value == 1
                     den_render = _wrap_if_needed(den, _render_expr(den; format=format); format=format)
-                    return string(base, "^{1/", den_render, "}")
+                    den_render = _simplify_exponent_latex(den_render)
+                    return string(base, "^{1/(", den_render, ")}")
                 end
             end
             return string(base, "^{", exp, "}")
@@ -1505,6 +1507,11 @@ function _render_expr(expr::EquationExpr; format::Symbol)
     else
         return string(expr)
     end
+end
+
+function _simplify_exponent_latex(text::AbstractString)
+    simplified = replace(text, r"\\mathrm\\{([^}]*)\\}" => s"\1")
+    return simplified
 end
 
 function _wrap_if_needed(expr::EquationExpr, rendered::AbstractString; format::Symbol)

@@ -532,145 +532,145 @@ Domain i in { AGR, LMN, HMN, SRV }
 `armington.eqQ[AGR]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/\mathrm{eta}_{i}}
+\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/(\mathrm{eta}_{i})}
 $$
 
 `armington.eqM[AGR]`
 
 $$
-\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `armington.eqD[AGR]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `armington.eqQ[LMN]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/\mathrm{eta}_{i}}
+\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/(\mathrm{eta}_{i})}
 $$
 
 `armington.eqM[LMN]`
 
 $$
-\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `armington.eqD[LMN]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `armington.eqQ[HMN]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/\mathrm{eta}_{i}}
+\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/(\mathrm{eta}_{i})}
 $$
 
 `armington.eqM[HMN]`
 
 $$
-\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `armington.eqD[HMN]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `armington.eqQ[SRV]`
 
 $$
-\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/\mathrm{eta}_{i}}
+\mathrm{Q}_{i} = \mathrm{gamma}_{i} \cdot (\mathrm{delta\_m}_{i} \cdot {\mathrm{M}_{i}}^{\mathrm{eta}_{i}} + \mathrm{delta\_d}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{eta}_{i}})^{1/(\mathrm{eta}_{i})}
 $$
 
 `armington.eqM[SRV]`
 
 $$
-\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{M}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_m}_{i} \cdot \mathrm{pq}_{i} / (1 + 0 + \mathrm{tau\_m}_{i}) \cdot \mathrm{pm}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `armington.eqD[SRV]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/(1 - \mathrm{eta}_{i})} \cdot \mathrm{Q}_{i}
+\mathrm{D}_{i} = ({\mathrm{gamma}_{i}}^{\mathrm{eta}_{i}} \cdot \mathrm{delta\_d}_{i} \cdot \mathrm{pq}_{i} / 1 \cdot \mathrm{pd}_{i})^{1/((1 - \mathrm{eta}_{i}))} \cdot \mathrm{Q}_{i}
 $$
 
 `transformation.eqZ[AGR]`
 
 $$
-\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/\mathrm{phi}_{i}}
+\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/(\mathrm{phi}_{i})}
 $$
 
 `transformation.eqE[AGR]`
 
 $$
-\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `transformation.eqDs[AGR]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `transformation.eqZ[LMN]`
 
 $$
-\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/\mathrm{phi}_{i}}
+\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/(\mathrm{phi}_{i})}
 $$
 
 `transformation.eqE[LMN]`
 
 $$
-\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `transformation.eqDs[LMN]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `transformation.eqZ[HMN]`
 
 $$
-\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/\mathrm{phi}_{i}}
+\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/(\mathrm{phi}_{i})}
 $$
 
 `transformation.eqE[HMN]`
 
 $$
-\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `transformation.eqDs[HMN]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `transformation.eqZ[SRV]`
 
 $$
-\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/\mathrm{phi}_{i}}
+\mathrm{Z}_{i} = \mathrm{theta}_{i} \cdot (\mathrm{xie}_{i} \cdot {\mathrm{E}_{i}}^{\mathrm{phi}_{i}} + \mathrm{xid}_{i} \cdot {\mathrm{D}_{i}}^{\mathrm{phi}_{i}})^{1/(\mathrm{phi}_{i})}
 $$
 
 `transformation.eqE[SRV]`
 
 $$
-\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{E}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xie}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pe}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `transformation.eqDs[SRV]`
 
 $$
-\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/(1 - \mathrm{phi}_{i})} \cdot \mathrm{Z}_{i}
+\mathrm{D}_{i} = ({\mathrm{theta}_{i}}^{\mathrm{phi}_{i}} \cdot \mathrm{xid}_{i} \cdot (1 + \mathrm{tau\_z}_{i}) \cdot \mathrm{pz}_{i} / \mathrm{pd}_{i})^{1/((1 - \mathrm{phi}_{i}))} \cdot \mathrm{Z}_{i}
 $$
 
 `market.eqQ[AGR]`
