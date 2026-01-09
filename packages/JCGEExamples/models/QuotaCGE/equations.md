@@ -119,13 +119,13 @@ Domain i in { BRD, MLK }
 `government.eqTz[BRD]`
 
 $$
-Tz_{i} = tau\_z_{i} \cdot pz_{i} \cdot Z_{i}
+Tz_{i} = {tau\_z}_{i} \cdot pz_{i} \cdot Z_{i}
 $$
 
 `government.eqTm[BRD]`
 
 $$
-Tm_{i} = tau\_m_{i} \cdot pm_{i} \cdot M_{i}
+Tm_{i} = {tau\_m}_{i} \cdot pm_{i} \cdot M_{i}
 $$
 
 `government.eqXg[BRD]`
@@ -140,13 +140,13 @@ Domain j in { BRD, MLK }
 `government.eqTz[MLK]`
 
 $$
-Tz_{i} = tau\_z_{i} \cdot pz_{i} \cdot Z_{i}
+Tz_{i} = {tau\_z}_{i} \cdot pz_{i} \cdot Z_{i}
 $$
 
 `government.eqTm[MLK]`
 
 $$
-Tm_{i} = tau\_m_{i} \cdot pm_{i} \cdot M_{i}
+Tm_{i} = {tau\_m}_{i} \cdot pm_{i} \cdot M_{i}
 $$
 
 `government.eqXg[MLK]`
@@ -242,37 +242,37 @@ Domain i in { BRD, MLK }
 `armington.eqQ[BRD]`
 
 $$
-Q_{i} = gamma_{i} \cdot (delta\_m_{i} \cdot {M_{i}}^{eta_i} + delta\_d_{i} \cdot {D_{i}}^{eta_i})^{1/(eta_i)}
+Q_{i} = gamma_{i} \cdot ({delta\_m}_{i} \cdot {M_{i}}^{eta_i} + {delta\_d}_{i} \cdot {D_{i}}^{eta_i})^{1/(eta_i)}
 $$
 
 `armington.eqM[BRD]`
 
 $$
-M_{i} = ({gamma_{i}}^{eta_i} \cdot delta\_m_{i} \cdot pq_{i} / (1 + chi_{i} + tau\_m_{i}) \cdot pm_{i})^{1/(1-eta_i)} \cdot Q_{i}
+M_{i} = ({gamma_{i}}^{eta_i} \cdot {delta\_m}_{i} \cdot pq_{i} / (1 + chi_{i} + {tau\_m}_{i}) \cdot pm_{i})^{1/(1-eta_i)} \cdot Q_{i}
 $$
 
 `armington.eqD[BRD]`
 
 $$
-D_{i} = ({gamma_{i}}^{eta_i} \cdot delta\_d_{i} \cdot pq_{i} / 1 \cdot pd_{i})^{1/(1-eta_i)} \cdot Q_{i}
+D_{i} = ({gamma_{i}}^{eta_i} \cdot {delta\_d}_{i} \cdot pq_{i} / 1 \cdot pd_{i})^{1/(1-eta_i)} \cdot Q_{i}
 $$
 
 `armington.eqQ[MLK]`
 
 $$
-Q_{i} = gamma_{i} \cdot (delta\_m_{i} \cdot {M_{i}}^{eta_i} + delta\_d_{i} \cdot {D_{i}}^{eta_i})^{1/(eta_i)}
+Q_{i} = gamma_{i} \cdot ({delta\_m}_{i} \cdot {M_{i}}^{eta_i} + {delta\_d}_{i} \cdot {D_{i}}^{eta_i})^{1/(eta_i)}
 $$
 
 `armington.eqM[MLK]`
 
 $$
-M_{i} = ({gamma_{i}}^{eta_i} \cdot delta\_m_{i} \cdot pq_{i} / (1 + chi_{i} + tau\_m_{i}) \cdot pm_{i})^{1/(1-eta_i)} \cdot Q_{i}
+M_{i} = ({gamma_{i}}^{eta_i} \cdot {delta\_m}_{i} \cdot pq_{i} / (1 + chi_{i} + {tau\_m}_{i}) \cdot pm_{i})^{1/(1-eta_i)} \cdot Q_{i}
 $$
 
 `armington.eqD[MLK]`
 
 $$
-D_{i} = ({gamma_{i}}^{eta_i} \cdot delta\_d_{i} \cdot pq_{i} / 1 \cdot pd_{i})^{1/(1-eta_i)} \cdot Q_{i}
+D_{i} = ({gamma_{i}}^{eta_i} \cdot {delta\_d}_{i} \cdot pq_{i} / 1 \cdot pd_{i})^{1/(1-eta_i)} \cdot Q_{i}
 $$
 
 `transformation.eqZ[BRD]`
@@ -284,13 +284,13 @@ $$
 `transformation.eqE[BRD]`
 
 $$
-E_{i} = ({theta_{i}}^{phi_i} \cdot xie_{i} \cdot (1 + tau\_z_{i}) \cdot pz_{i} / pe_{i})^{1/(1-phi_i)} \cdot Z_{i}
+E_{i} = ({theta_{i}}^{phi_i} \cdot xie_{i} \cdot (1 + {tau\_z}_{i}) \cdot pz_{i} / pe_{i})^{1/(1-phi_i)} \cdot Z_{i}
 $$
 
 `transformation.eqDs[BRD]`
 
 $$
-D_{i} = ({theta_{i}}^{phi_i} \cdot xid_{i} \cdot (1 + tau\_z_{i}) \cdot pz_{i} / pd_{i})^{1/(1-phi_i)} \cdot Z_{i}
+D_{i} = ({theta_{i}}^{phi_i} \cdot xid_{i} \cdot (1 + {tau\_z}_{i}) \cdot pz_{i} / pd_{i})^{1/(1-phi_i)} \cdot Z_{i}
 $$
 
 `transformation.eqZ[MLK]`
@@ -302,13 +302,13 @@ $$
 `transformation.eqE[MLK]`
 
 $$
-E_{i} = ({theta_{i}}^{phi_i} \cdot xie_{i} \cdot (1 + tau\_z_{i}) \cdot pz_{i} / pe_{i})^{1/(1-phi_i)} \cdot Z_{i}
+E_{i} = ({theta_{i}}^{phi_i} \cdot xie_{i} \cdot (1 + {tau\_z}_{i}) \cdot pz_{i} / pe_{i})^{1/(1-phi_i)} \cdot Z_{i}
 $$
 
 `transformation.eqDs[MLK]`
 
 $$
-D_{i} = ({theta_{i}}^{phi_i} \cdot xid_{i} \cdot (1 + tau\_z_{i}) \cdot pz_{i} / pd_{i})^{1/(1-phi_i)} \cdot Z_{i}
+D_{i} = ({theta_{i}}^{phi_i} \cdot xid_{i} \cdot (1 + {tau\_z}_{i}) \cdot pz_{i} / pd_{i})^{1/(1-phi_i)} \cdot Z_{i}
 $$
 
 `quota.eqRT[BRD]`
