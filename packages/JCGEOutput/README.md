@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/src/assets/jcge_output_logo_dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/src/assets/jcge_output_logo_light.png">
+  <img alt="JCGE Output logo" src="docs/src/assets/jcge_output_logo_light.png" height="150">
+</picture>
+
 # JCGEOutput
 
 ## What is a CGE?

@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/src/assets/jcge_blocks_logo_dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/src/assets/jcge_blocks_logo_light.png">
+  <img alt="JCGE Blocks logo" src="docs/src/assets/jcge_blocks_logo_light.png" height="150">
+</picture>
+
 # JCGEBlocks
 
 ## What is a CGE?

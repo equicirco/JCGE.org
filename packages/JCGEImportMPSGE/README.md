@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/src/assets/jcge_importmpsge_logo_dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/src/assets/jcge_importmpsge_logo_light.png">
+  <img alt="JCGE ImportMPSGE logo" src="docs/src/assets/jcge_importmpsge_logo_light.png" height="150">
+</picture>
+
 # JCGEImportMPSGE
 
 ## What is a CGE?

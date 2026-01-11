@@ -1,7 +1,0 @@
-name = "JCGECore"
-uuid = "9fb9d605-0ed3-4980-82c1-f0874844db5d"
-authors = ["Riccardo Boero <ribo@nilu.no>"]
-version = "0.0.0"
-
-[deps]
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

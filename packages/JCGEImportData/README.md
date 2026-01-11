@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/src/assets/jcge_importdata_logo_dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/src/assets/jcge_importdata_logo_light.png">
+  <img alt="JCGE ImportData logo" src="docs/src/assets/jcge_importdata_logo_light.png" height="150">
+</picture>
+
 # JCGEImportData
 
 ## What is a CGE?
