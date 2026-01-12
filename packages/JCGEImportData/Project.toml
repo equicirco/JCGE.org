@@ -13,3 +13,6 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 [sources]
 JCGECalibrate = { path = "../JCGECalibrate" }
 JCGECore = { path = "../JCGECore" }
+
+[compat]
+julia = ">= 1.10"

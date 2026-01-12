@@ -27,3 +27,6 @@ JCGERuntime = {path = "../JCGERuntime"}
 
 [compat]
 PATHSolver = "1.7.9"
+
+[compat]
+julia = ">= 1.10"

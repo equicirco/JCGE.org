@@ -5,7 +5,12 @@ makedocs(
     sitename = "JCGEImportMPSGE",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
-        assets = ["assets/logo.css", "assets/deepwiki-chat.css", "assets/deepwiki-chat.js", "assets/logo-theme.js", "assets/jcge_importmpsge_logo_light.png", "assets/jcge_importmpsge_logo_dark.png"]
+        assets = [
+        "assets/logo.css",
+        "assets/deepwiki-chat.css",
+        "assets/deepwiki-chat.js",
+        "assets/logo-theme.js",
+    ]
     ),
     pages = [
         "Home" => "index.md",
