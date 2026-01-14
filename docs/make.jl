@@ -4,8 +4,8 @@ makedocs(
     sitename = "JCGE",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
-        logo = "assets/jcge_logo_light.png",
-        logo_dark = "assets/jcge_logo_dark.png",
+        assets = ["assets/custom.css", "assets/custom.js"],
+        inventory_version = "dev",
     ),
     pages = [
         "Home" => "index.md",
