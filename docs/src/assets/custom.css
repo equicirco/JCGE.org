@@ -1,12 +1,16 @@
 .jcge-logo {
-  display: block;
-  margin: 0 0 0.75rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0;
+  width: 100%;
 }
 
 .jcge-logo img {
   display: block;
   max-width: 160px;
   height: auto;
+  margin: 0 auto;
 }
 
 .jcge-logo-dark {

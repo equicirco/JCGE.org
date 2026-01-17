@@ -7,14 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const base = (window.documenterBaseURL || ".").replace(/\/$/, "");
 
   const header =
+    sidebar.querySelector(".docs-package-name") ||
     sidebar.querySelector(".docs-sidebar-header") ||
     sidebar.querySelector(".docs-header") ||
     sidebar;
 
-  const existing = sidebar.querySelector(".jcge-logo");
-  if (existing) {
-    existing.remove();
+  if (header.querySelector("#jcge-sidebar-logo")) {
+    return;
   }
+
+  header.innerHTML = "";
 
   const link =
     document.querySelector("a.docs-logo") ||
@@ -22,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("a#documenter-home");
 
   const logoLink = document.createElement("a");
+  logoLink.id = "jcge-sidebar-logo";
   logoLink.className = "jcge-logo";
   logoLink.href = link ? link.href : "/";
 
