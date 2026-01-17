@@ -1,16 +1,19 @@
 # Julia Computable General Equilibrium Framework
 
 ```@raw html
-<picture>
-  <source srcset="assets/jcge_logo_dark.png" media="(prefers-color-scheme: dark)">
-  <img src="assets/jcge_logo_light.png" alt="JCGE" style="max-width: 130px; height: auto; align: left;">
-</picture>
+<div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+  <picture>
+    <source srcset="assets/jcge_logo_dark.png" media="(prefers-color-scheme: dark)">
+    <img src="assets/jcge_logo_light.png" alt="JCGE" style="max-width: 130px; height: auto;">
+  </picture>
+  <div style="max-width: 48rem;">
+    JCGE is a modular, block-based framework for Computable General Equilibrium (CGE)
+    modeling in Julia. This documentation is the project entry point: it describes
+    architecture, workflows, and package boundaries while the package APIs live in their
+    own docs.
+  </div>
+</div>
 ```
-
-JCGE is a modular, block-based framework for Computable General Equilibrium (CGE)
-modeling in Julia. This documentation is the project entry point: it describes
-architecture, workflows, and package boundaries while the package APIs live in their
-own docs.
 
 ## Start here
 
