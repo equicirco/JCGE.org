@@ -4,8 +4,11 @@ makedocs(
     sitename = "JCGE",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
-        assets = ["assets/custom.css", "assets/custom.js"],
         inventory_version = "dev",
+        assets = [
+            "assets/logo-theme.js",
+            "assets/logo.css",
+        ],
     ),
     pages = [
         "Home" => "index.md",
