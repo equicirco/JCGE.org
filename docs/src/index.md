@@ -8,54 +8,28 @@
 ```
 
 JCGE is a modular, block-based framework for Computable General Equilibrium (CGE)
-modeling in Julia. This documentation is the entry point for the project: it describes
-architecture, workflows, and package boundaries. Each package is developed and
-documented independently, and is intended to live in the Julia General Registry.
+modeling in Julia. This documentation is the project entry point: it describes
+architecture, workflows, and package boundaries while the package APIs live in their
+own docs.
 
-## What this repo is
+## Start here
+
+- [Getting Started](getting-started.md): install packages and run your first model
+- [Packages](packages.md): what each package does in the ecosystem
+- [Guides](guides/modeling.md): modeling, calibration, output, and imports
+
+## What this project is
 
 - Project overview and architecture
 - Cross-package guides for modeling, calibration, and output
 - A stable reference to how the ecosystem fits together
 
-## What this repo is not
+## What this project is not
 
 - A single monolithic package
 - The source of truth for package-level APIs (each package has its own docs)
 
-## Quick start
+## Ecosystem at a glance
 
-Install the packages you need:
-
-```julia
-import Pkg
-Pkg.add([
-    "JCGECore",
-    "JCGEBlocks",
-    "JCGERuntime",
-    "JCGECalibrate",
-    "JCGEOutput",
-])
-```
-
-Run an example model:
-
-```julia
-using JCGEExamples
-result = JCGEExamples.StandardCGE.solve()
-```
-
-For MCP models, PATHSolver is required. See the Imports guide for license setup.
-
-## Architecture snapshot
-
-- **JCGECore**: RunSpec, sections, sets, mappings, scenarios, and validation
-- **JCGEBlocks**: reusable CGE building blocks (production, households, markets)
-- **JCGERuntime**: compile and solve RunSpecs with solver backends
-- **JCGECalibrate**: calibration from SAM and parameter derivation
-- **JCGEOutput**: equation rendering and results containers
-- **JCGEExamples**: reference models and ports of published CGE models
-- **JCGEImportData**: canonical IO/SAM schema and adapters
-- **JCGEImportMPSGE**: MPSGE.jl importer
-
-Continue with the package overview and guides for detail.
+JCGE is a family of focused Julia packages. The Packages page gives a quick map of
+the ecosystem and where to look for detailed API references.

@@ -18,3 +18,15 @@ summarizes responsibilities and typical usage.
 Each package has its own documentation site and API reference. This repository
 keeps the ecosystem narrative consistent, but package-specific details belong in
 those package docs.
+
+## Resources
+
+- JCGECore: code https://github.com/equicirco/JCGECore.jl, docs https://equicirco.github.io/JCGECore.jl
+- JCGEBlocks: code https://github.com/equicirco/JCGEBlocks.jl, docs https://equicirco.github.io/JCGEBlocks.jl
+- JCGERuntime: code https://github.com/equicirco/JCGERuntime.jl, docs https://equicirco.github.io/JCGERuntime.jl
+- JCGECalibrate: code https://github.com/equicirco/JCGECalibrate.jl, docs https://equicirco.github.io/JCGECalibrate.jl
+- JCGEOutput: code https://github.com/equicirco/JCGEOutput.jl, docs https://equicirco.github.io/JCGEOutput.jl
+- JCGEExamples: code https://github.com/equicirco/JCGEExamples.jl, docs https://equicirco.github.io/JCGEExamples.jl
+- JCGEImportData: code https://github.com/equicirco/JCGEImportData.jl, docs https://equicirco.github.io/JCGEImportData.jl
+- JCGEImportMPSGE: code https://github.com/equicirco/JCGEImportMPSGE.jl, docs https://equicirco.github.io/JCGEImportMPSGE.jl
+- JCGEAgentInterface: code https://github.com/equicirco/JCGEAgentInterface.jl, docs https://equicirco.github.io/JCGEAgentInterface.jl

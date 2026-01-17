@@ -1,0 +1,24 @@
+.jcge-logo {
+  display: block;
+  margin: 0 0 0.75rem 0;
+}
+
+.jcge-logo img {
+  display: block;
+  max-width: 200px;
+  height: auto;
+}
+
+.jcge-logo-dark {
+  display: none;
+}
+
+html[data-theme="dark"] .jcge-logo-dark,
+body.documenter-dark .jcge-logo-dark {
+  display: block;
+}
+
+html[data-theme="dark"] .jcge-logo-light,
+body.documenter-dark .jcge-logo-light {
+  display: none;
+}

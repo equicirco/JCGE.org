@@ -9,6 +9,9 @@ makedocs(
     ),
     pages = [
         "Home" => "index.md",
+        "Getting Started" => "getting-started.md",
+        "Project" => "project.md",
+        "Contact & Citation" => "contact.md",
         "Packages" => "packages.md",
         "Guides" => [
             "Modeling" => "guides/modeling.md",
