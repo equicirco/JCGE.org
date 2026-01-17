@@ -8,7 +8,7 @@
 
 This repository is the entry point for the block-based Julia CGE (JCGE) framework.
 
-Project documentation is available on the docs site, which is reachable at [https://equicirco.github.io/JCGE](https://equicirco.github.io/JCGE).
+Project documentation is available on the docs site, which is reachable at [https://JCGE.org](https://JCGE.org).
 
 Author: Riccardo Boero <ribo@nilu.no>
 

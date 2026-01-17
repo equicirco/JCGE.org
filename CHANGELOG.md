@@ -10,10 +10,11 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
-## [0.1.0] - unreleased
+## [A] - 2026-01-17
 ### Added
-- Project layout and package boundaries.
-- Initial block-based modeling interfaces and RunSpec structure.
-- Calibration and output utilities with canonical data schema.
-- Example models and integration tests.
-- Documentation scaffolding and package docs.
+- Documentation site scaffolding with Documenter config and build setup.
+- Landing page explaining JCGE scope, architecture, and ecosystem map.
+- Getting Started guide covering installation and a reference model run.
+- Guides for modeling, blocks, calibration, output, imports, and running workflows.
+- Project overview, package listings, and contact information pages.
+- Branding assets and custom theme styling for the docs site.

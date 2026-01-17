@@ -19,7 +19,7 @@ flexible ways to keep executions fully traceable.
 If you use JCGE in your CGE models, please cite it as:
 
 ```
-JCGE - Julia Computable General Equilibrium Framework
+Boero, R. JCGE - Julia Computable General Equilibrium Framework [software], 2026
 DOI: 
 ```
 
@@ -30,9 +30,7 @@ BibTeX:
   title        = {JCGE - Julia Computable General Equilibrium Framework.},
   author       = {Boero, Riccardo},
   year         = {2026},
-  version      = {v0.1.0},
   doi          = {},
-  url          = {https://equicirco.github.io/JCGE/},
-  publisher    = {NILU}
+  url          = {https://JCGE.org}
 }
 ```
