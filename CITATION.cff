@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: JCGE.jl - Julia Computable General Equilibrium Framework.
+title: JCGE - Julia Computable General Equilibrium Framework.
 message: >-
   v0.1.0 - Initial public release.
 type: software
@@ -14,10 +14,10 @@ identifiers:
   - type: doi
     value: ""
     description: This DOI represents all software versions.
-repository-code: "https://github.com/equicirco/JCGE.jl"
-url: "https://equicirco.github.io/JCGE.jl/"
+repository-code: "https://github.com/equicirco/JCGE"
+url: "https://equicirco.github.io/JCGE/"
 abstract: >-
-  JCGE.jl is a modular Julia framework for computable general equilibrium (CGE)
+  JCGE is a modular Julia framework for computable general equilibrium (CGE)
   modeling. It organizes core abstractions, calibration, runtime, reporting, and
   reference models into focused packages, providing a cohesive ecosystem for
   building and solving CGE models in Julia.

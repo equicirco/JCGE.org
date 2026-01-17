@@ -18,12 +18,12 @@ BibTeX:
 
 ```bibtex
 @software{boero_jcge_2025,
-  title        = {JCGE.jl - Julia Computable General Equilibrium Framework.},
+  title        = {JCGE - Julia Computable General Equilibrium Framework.},
   author       = {Boero, Riccardo},
   year         = {2026},
   version      = {v0.1.0},
   doi          = {},
-  url          = {https://equicirco.github.io/JCGE.jl/},
+  url          = {https://equicirco.github.io/JCGE/},
   publisher    = {NILU}
 }
 ```
