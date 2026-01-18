@@ -10,10 +10,10 @@
       </picture>
     </td>
     <td style="vertical-align: top; text-align: left;">
-      JCGE is a modular, block-based framework for Computable General Equilibrium (CGE)
-      modeling in Julia. This documentation is the project entry point: it describes
-      architecture, workflows, and package boundaries while the package APIs live in their
-      own docs.
+JCGE is a modular, block-based framework for Computable General Equilibrium (CGE)
+modeling in Julia. This documentation is the project entry point: it describes
+architecture, workflows, and package boundaries while the package APIs live in their
+own docs.
     </td>
   </tr>
 </table>
@@ -21,22 +21,20 @@
 
 ## Start here
 
+This site is organized around a project overview, a quick start, and a set of
+[cross-package guides](guides/modeling.md). Use the links below to jump to the
+part of the framework you need.
+
+If you are looking for package-level APIs, start with the
+[Packages](packages.md) page.
+
+- [Project overview](project.md): design goals and how the ecosystem fits together
 - [Getting Started](getting-started.md): install packages and run your first model
 - [Packages](packages.md): what each package does in the ecosystem
 - [Guides](guides/modeling.md): modeling, calibration, output, and imports
-
-## What this website is
-
-- Project overview and architecture
-- Cross-package guides for modeling, calibration, and output
-- A stable reference to how the ecosystem fits together
-
-## What this website is not
-
-- A single monolithic package
-- The source of truth for package-level APIs (each package has its own docs)
+- [Contact & citation](contact.md): how to cite and who to reach
 
 ## Ecosystem at a glance
 
-JCGE is a family of focused Julia packages. The Packages page gives a quick map of
-the ecosystem and where to look for detailed API references.
+JCGE is a family of focused Julia packages. The [Packages](packages.md) page gives
+a quick map of the ecosystem and where to look for detailed API references.
