@@ -28,7 +28,7 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/equicirco/JCGE.git",
+    repo = "github.com/equicirco/JCGE.org.git",
     branch = "gh-pages",
     devbranch = "main",
     versions = nothing,
