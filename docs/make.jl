@@ -39,6 +39,7 @@ makedocs(
 deploydocs(
     repo = "github.com/equicirco/JCGE.org.git",
     branch = "gh-pages",
+    cname = readchomp(joinpath(@__DIR__, "..", "CNAME")),
     devbranch = "main",
     versions = nothing,
 )
