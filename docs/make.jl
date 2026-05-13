@@ -9,6 +9,14 @@ makedocs(
             "assets/favicon.ico",
             "assets/logo-theme.js",
             "assets/logo.css",
+            asset(
+                "https://stats.bojafa.us/script.js",
+                class = :js,
+                attributes = Dict(
+                    :defer => "",
+                    Symbol("data-website-id") => "13e68d2a-ccad-4901-b409-ceff2a689a3a",
+                ),
+            ),
         ],
     ),
     pages = [
