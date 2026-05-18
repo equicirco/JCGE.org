@@ -7,7 +7,7 @@ summarizes responsibilities and typical usage.
 |---|---|---|
 | `JCGECore` | RunSpec, sections, sets/mappings, scenarios, validation | Define model structure and constraints |
 | `JCGEBlocks` | Reusable CGE blocks | Assemble production/household/market systems |
-| `JCGERuntime` | Compilation and solver execution | Solve a RunSpec with Ipopt/PATH |
+| `JCGERuntime` | Compilation, solver execution, and experiment workflows | Solve a RunSpec and run parameter/policy batches |
 | `JCGECalibrate` | SAM loading and calibration | Derive parameters and starting values |
 | `JCGEOutput` | Rendering and results containers | Export equations, tidy results, DualSignals |
 | `JCGEExamples` | Reference models | Canonical model ports and tests |

@@ -60,6 +60,11 @@ workflow is to:
 
 Use consistent naming for scenarios to make reports reproducible.
 
+Generic batch mechanics for parameter grids, policy grids, reference comparisons,
+frontier selection, sensitivity screens, and closure checks live in
+`JCGERuntime.Experiments`. Model packages remain responsible for their own model
+builders, indicators, and interpretation of results.
+
 ## Troubleshooting
 
 - Check validation reports before solving.

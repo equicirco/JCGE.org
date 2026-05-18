@@ -25,7 +25,8 @@ data structures and explicit interfaces:
 
 - Core abstractions and schemas live in `JCGECore`.
 - Reusable modeling blocks are defined in `JCGEBlocks`.
-- Model execution and solver orchestration run through `JCGERuntime`.
+- Model execution, solver orchestration, and generic experiment workflows run
+  through `JCGERuntime`.
 - Calibration workflows live in `JCGECalibrate`.
 - Reporting and export live in `JCGEOutput`.
 - Reference models and end-to-end examples live in `JCGEExamples`.
@@ -67,9 +68,3 @@ across models and institutions.
 - Research groups that need transparent, inspectable models.
 - Organizations that want reusable components instead of single-use scripts.
 - Students and educators building modern CGE workflows.
-
-## Status and roadmap
-
-JCGE is fully working and fully developed to support professional and research CGE
-work. As an open source project it will continue to improve and expand. The next
-focus is deeper data integration in the `JCGEImportData` package.
