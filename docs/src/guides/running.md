@@ -65,6 +65,22 @@ frontier selection, sensitivity screens, and closure checks live in
 `JCGERuntime.Experiments`. Model packages remain responsible for their own model
 builders, indicators, and interpretation of results.
 
+Starting with `JCGERuntime` v0.1.2, independent experiment grids can also use
+process-based distributed execution:
+
+```julia
+records = JCGERuntime.Experiments.run_grid(specs;
+    runner = run_experiment,
+    execution = :distributed,
+    workers = 8,
+    worker_modules = [:MyModelPackage],
+)
+```
+
+Serial execution remains the default. The distributed mode is meant for
+parameter-space and policy-grid exploration where each experiment can be solved
+independently.
+
 ## Troubleshooting
 
 - Check validation reports before solving.
