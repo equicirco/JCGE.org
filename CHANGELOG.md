@@ -12,6 +12,9 @@ Security: For vulnerabilities.
 
 ## [B] - Unreleased
 ### Added
+- AI Agent Interface documentation for the `0.2.0` model-lifecycle tools:
+  readiness checks, controlled calibration, named studies, reporting, and
+  session-scoped provenance.
 - Cross-package guide for closure-condition roles and post-solution accounting
   checks, covering Core, Blocks, Runtime, and Output.
 - Links and package-overview descriptions aligned with closure-aware modeling,
@@ -20,6 +23,11 @@ Security: For vulnerabilities.
   baseline-referenced projections, and post-solution physical-balance checks.
 - Documentation distinguishing reporting-only satellite quantities from
   auxiliary quantities that participate in the equilibrium system.
+
+### Changed
+- The AI Agent Interface guide now distinguishes the generic MCP server from a
+  separate application host. JCGE model packages remain MCP-independent; an
+  external host imports and registers only the model operations it exposes.
 
 ## [A] - 2026-01-17
 ### Added

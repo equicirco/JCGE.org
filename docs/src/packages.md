@@ -13,7 +13,7 @@ summarizes responsibilities and typical usage.
 | `JCGEExamples` | Reference models | Canonical model ports and tests |
 | `JCGEImportData` | Canonical IO/SAM schema | Convert external data to CSV inputs |
 | `JCGEImportMPSGE` | MPSGE.jl importer | Translate MPSGE objects to RunSpecs |
-| `JCGEAgentInterface` | MCP-compatible interface for agents | AI-assisted discovery, modeling guidance, solving, validation, and reporting |
+| `JCGEAgentInterface` | MCP-compatible interface for agents | AI-assisted discovery and guidance, plus controlled model calibration, studies, reporting, and provenance through a separate MCP host |
 
 Each package has its own documentation site and API reference. This repository
 keeps the ecosystem narrative consistent, but package-specific details belong in

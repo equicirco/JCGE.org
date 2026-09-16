@@ -50,16 +50,19 @@ for license setup.
 
 ## Agent interface
 
-If you want to use JCGE through an MCP-compatible AI assistant, add
-`JCGEAgentInterface` to the same Julia environment:
+If you want to use JCGE through an MCP-compatible AI assistant, configure the
+released MCP server in the client, or install `JCGEAgentInterface` in a
+dedicated MCP host environment:
 
 ```julia
 import Pkg
 Pkg.add("JCGEAgentInterface")
 ```
 
-The [AI Agent Interface guide](guides/agents.md) explains the registered MCP
-server, Docker image, and model-development services.
+Your model package does not need to depend on or import the agent interface.
+The [AI Agent Interface guide](guides/agents.md) explains the released server,
+Docker image, and the separate-host pattern used when an agent needs to run a
+model.
 
 ## Next steps
 
