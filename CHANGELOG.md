@@ -23,6 +23,8 @@ Security: For vulnerabilities.
   baseline-referenced projections, and post-solution physical-balance checks.
 - Documentation distinguishing reporting-only satellite quantities from
   auxiliary quantities that participate in the equilibrium system.
+- Output guide coverage of validated indexed equation reports and automatic
+  LaTeX layout for long relations and domains.
 
 ### Changed
 - The AI Agent Interface guide now distinguishes the generic MCP server from a

@@ -29,6 +29,14 @@ Use this to:
 - Compare variants of the same model.
 - Generate human-readable documentation.
 
+For a compact equation inventory, `render_equation_report` can render exact
+equation families or explicitly declared indexed forms. The model author
+supplies any index mappings, reference mappings, and direct-term enumerations;
+they are validated for coverage and change only the report, never the model
+equations. LaTeX output wraps long relations and sum/product domains for
+document layouts. See the [JCGEOutput documentation](https://Output.JCGE.org)
+for the package API and formatting options.
+
 ## Results containers
 
 Results are stored in a canonical `Results` object with primals/duals and
