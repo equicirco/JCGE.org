@@ -11,9 +11,9 @@ summarizes responsibilities and typical usage.
 | `JCGECalibrate` | SAM loading and calibration | Derive parameters and starting values |
 | `JCGEOutput` | Equation rendering, results containers, accounting-check reporting, and satellite quantities | Export equations, tidy results, physical-flow projections, balance checks, and DualSignals |
 | `JCGEExamples` | Reference models and scenarios | Canonical model ports, documented input contracts, and solver-backed scenario examples |
-| `JCGEImportData` | Canonical IO/SAM schema | Convert external data to CSV inputs |
+| `JCGEImportData` | Source adapters, IO/SUT transformations, balance diagnostics, and canonical-data writing | Prepare declared source accounts for model-owned SAM construction |
 | `JCGEImportMPSGE` | MPSGE.jl importer | Translate MPSGE objects to RunSpecs |
-| `JCGEAgentInterface` | MCP-compatible interface for agents | AI-assisted discovery and guidance, plus controlled model calibration, studies, reporting, and provenance through a separate MCP host |
+| `JCGEAgentInterface` | MCP-compatible framework interface | AI-assisted catalogue discovery, source-data and modelling guidance, and controlled model workflows through a separate MCP host |
 
 Each package has its own documentation site and API reference. This repository
 keeps the ecosystem narrative consistent, but package-specific details belong in

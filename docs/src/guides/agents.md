@@ -19,8 +19,9 @@ It currently provides services for:
 
 - discovering installed JCGE package versions and capabilities;
 - listing and describing reusable `JCGEBlocks` components;
-- guiding model development, formulation choice, solver choice, calibration, and
-  reporting;
+- discovering installed `JCGEExamples` reference models;
+- guiding source-neutral data preparation, model development, formulation
+  choice, solver choice, calibration, and reporting;
 - updating released JCGE packages in the active Julia environment when requested;
 - checking registered-model readiness and compatible JCGE package versions;
 - running model-defined calibration checks, scenarios, experiments, and reports;
@@ -30,8 +31,10 @@ It currently provides services for:
 - returning session-scoped, structured provenance for model studies.
 
 The interface does not automatically create a complete CGE model, choose the
-right closure, fetch arbitrary external data, or decide the economic theory for
-the user. Those choices remain part of the model source.
+right closure, retrieve arbitrary external data, or decide the economic theory
+for the user. Its import-data guide describes the released source adapters and
+their boundaries; aggregation, account mapping, SAM construction, and economic
+assumptions remain part of the model source.
 
 ## Choose How to Use the Server
 
@@ -116,9 +119,11 @@ The MCP tool surface includes:
 | `jcge_capabilities` | Discover JCGE package capabilities and versions. |
 | `jcge_list_blocks` | List reusable block helpers grouped by model component. |
 | `jcge_describe_block` | Describe one block helper or block type. |
+| `jcge_list_examples` | List reference-model modules in the installed `JCGEExamples` package. |
 | `jcge_modeling_guide` | Guide the JCGE model-development workflow. |
 | `jcge_formulation_guide` | Guide equality, inequality, MCP/complementarity, and optimization-style formulations. |
 | `jcge_solver_guide` | Guide solver choice and diagnostics. |
+| `jcge_import_data_guide` | Guide released source-neutral IO, SUT, satellite, and national-account import support. |
 | `jcge_calibration_guide` | Guide currently available calibration workflows. |
 | `jcge_reporting_guide` | Guide generated equation and results reporting. |
 | `jcge_package_status` | Report installed and loaded JCGE package versions. |

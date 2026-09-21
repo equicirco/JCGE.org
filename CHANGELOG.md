@@ -12,6 +12,12 @@ Security: For vulnerabilities.
 
 ## [B] - Unreleased
 ### Added
+- Import-guide and package-catalogue coverage for `JCGEImportData` 0.2.0:
+  released BEA, Eurostat, FIGARO, and OECD source support; normalized source
+  tables; balance diagnostics; Model-D transformation; and retained source
+  manifests with checksums.
+- AI Agent Interface documentation for the `0.3.0` source-data guidance and
+  installed-example discovery tools.
 - AI Agent Interface documentation for the `0.2.0` model-lifecycle tools:
   readiness checks, controlled calibration, named studies, reporting, and
   session-scoped provenance.
