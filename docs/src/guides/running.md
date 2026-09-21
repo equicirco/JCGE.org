@@ -12,6 +12,23 @@ using JCGEExamples
 result = JCGEExamples.StandardCGE.solve()
 ```
 
+For a multi-region reference model with bilateral trade and a declared shock:
+
+```julia
+using JCGEExamples
+
+result = JCGEExamples.GTAP7.solve(
+    scenario_name=:productivity,
+    productivity_region=:EAST,
+    productivity_product=:MANUF,
+    productivity_multiplier=1.10,
+)
+```
+
+The GTAP7 fixture is synthetic and open; licensed GTAP data are not bundled.
+Its `:trade_cost` scenario changes a calibrated route delivery wedge, rather
+than representing a tariff or a transport-margin account.
+
 ## Build a spec and run it
 
 You can also run a custom `RunSpec` directly once it is validated:

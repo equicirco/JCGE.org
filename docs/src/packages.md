@@ -10,7 +10,7 @@ summarizes responsibilities and typical usage.
 | `JCGERuntime` | Role-aware compilation, solver execution, residual diagnostics, and experiment workflows | Solve a RunSpec and run parameter/policy batches |
 | `JCGECalibrate` | SAM loading and calibration | Derive parameters and starting values |
 | `JCGEOutput` | Equation rendering, results containers, accounting-check reporting, and satellite quantities | Export equations, tidy results, physical-flow projections, balance checks, and DualSignals |
-| `JCGEExamples` | Reference models | Canonical model ports and tests |
+| `JCGEExamples` | Reference models and scenarios | Canonical model ports, documented input contracts, and solver-backed scenario examples |
 | `JCGEImportData` | Canonical IO/SAM schema | Convert external data to CSV inputs |
 | `JCGEImportMPSGE` | MPSGE.jl importer | Translate MPSGE objects to RunSpecs |
 | `JCGEAgentInterface` | MCP-compatible interface for agents | AI-assisted discovery and guidance, plus controlled model calibration, studies, reporting, and provenance through a separate MCP host |
@@ -18,6 +18,18 @@ summarizes responsibilities and typical usage.
 Each package has its own documentation site and API reference. This repository
 keeps the ecosystem narrative consistent, but package-specific details belong in
 those package docs.
+
+## Reference-model coverage
+
+`JCGEExamples` includes models ranging from small teaching examples to
+literature-based CGE formulations. Its GTAP7 example is an independent,
+data-driven implementation of the core GTAP Standard 7 multi-region structure.
+It demonstrates CDE private demand, bilateral Armington sourcing and CET sales
+allocation, regional external accounts, and global saving--investment closure
+using a small open synthetic fixture. It also provides declared shocks to factor
+endowments, productivity, taxes, demand preferences, private saving, and route
+delivery costs. The full model and its input contract are documented in
+[JCGEExamples](https://Examples.JCGE.org).
 
 ## Resources
 
