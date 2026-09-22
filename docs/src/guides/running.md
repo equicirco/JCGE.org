@@ -29,6 +29,15 @@ The GTAP7 fixture is synthetic and open; licensed GTAP data are not bundled.
 Its `:trade_cost` scenario changes a calibrated route delivery wedge, rather
 than representing a tariff or a transport-margin account.
 
+The same compact fixture and counterfactual interface are also available as an
+explicit mixed-complementarity formulation for PATH:
+
+```julia
+using JCGEExamples.GTAP7MCP
+
+result = GTAP7MCP.solve()
+```
+
 ## Build a spec and run it
 
 You can also run a custom `RunSpec` directly once it is validated:

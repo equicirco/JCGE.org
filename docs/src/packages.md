@@ -29,7 +29,9 @@ allocation, regional external accounts, and global saving--investment closure
 using a small open synthetic fixture. It also provides declared shocks to factor
 endowments, productivity, taxes, demand preferences, private saving, and route
 delivery costs. The full model and its input contract are documented in
-[JCGEExamples](https://Examples.JCGE.org).
+[JCGEExamples](https://Examples.JCGE.org). `GTAP7MCP` is its PATH/MCP
+companion: it uses the same compact fixture and declared counterfactuals while
+pairing the equilibrium conditions explicitly with their model variables.
 
 ## Resources
 
